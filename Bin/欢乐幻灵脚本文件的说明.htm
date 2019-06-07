@@ -1,0 +1,467 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>欢乐幻灵使用说明书</title>
+</head>
+
+<body>
+
+<p align="center"><font size="5" color="#800000"><b>欢乐幻灵脚本文件</b></font><b><font size="5" color="#800000">的说明</font></b></p>
+
+<p align="center"><font size="4" color="#800000">Bien 2003.10.17</font></p>
+<hr>
+<ul>
+  <li>
+<p align="left"><font color="#0000FF">此说明适用与欢乐幻灵Ver0.88版，并与以后版本兼容</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#0000FF">脚本文件的格式为</font><font color="#FF0000">xxx</font><font color="#0000FF">.ini，其中</font><font color="#FF0000">xxx</font><font color="#0000FF">自己起名，可以为中文</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#0000FF">脚本文件要放到欢乐幻灵目录的Scripts主目录中</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#0000FF">脚本中的参数如果为“</font><font color="#FF0000">※用户名</font><font color="#0000FF">”，那么指的就是</font><font color="#FF0000">你在游戏中的名字</font></p>
+
+  </li>
+</ul>
+<p align="left"><b><font color="#000080" size="4">脚本文件一共分为如下部分：</font></b></p>
+
+<p align="left"><font color="#800080" size="4">1、“<b>[Main]</b>”，脚本起始部分</font></p>
+
+<ul>
+  <li>
+<p align="left"><font color="#000080">“<b>TransactionCount</b>”，说明要做多少个大步骤（没有限制哟，可以做1000次大步骤，这样......）<br>
+　</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#000080">“<b>RepeatCount</b>”，说明要将脚本重复多少次，如果是“<b>RepeatCount=无限循环</b>”，那么这个脚本就无限循环<br>
+　</font></p>
+
+  </li>
+</ul>
+<p align="left"><font size="4" color="#800080">2、“</font><font size="4"><b><font color="#800080">[Transaction</font><font color="#FF0000">N</font><font color="#800080">]</font></b><font color="#800080">”，描述第</font><font color="#FF0000">N</font><font color="#800080">个大步骤，</font><font color="#FF0000">N</font></font><font size="4" color="#800080">从</font><font size="4" color="#0000FF"><b>0</b></font><font size="4" color="#800080">开始</font></p>
+
+<ul>
+  <li>
+<p align="left"><font color="#000080">“<b>Caption</b>”，说明这个大步骤的标题，会在欢乐幻灵中工作步骤处显示<br>
+　</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#000080">“<b>PurposeCount</b>”，说明这个步骤要达到几个目的，这个目的是为了判断是否需要进行这个大步骤（</font><b><font color="#0000FF">如果目的中描述的条件在没有进行这个步骤之前就满足了，就不进行这个大步骤</font></b><font color="#000080">），如果不写，就认为没有目的，那么这个大步骤就无条件执行<br>
+</font><b><font color="#0000FF">注意1：各个目的之间是“与”的关系，即全部的Purpose都满足，才判断为整个目的条件满足<br>
+注意2：Purpose只是在大步骤开始前判断一下，当大步骤开始后，就不再判断了；也就是说，Purpose只是解决“</font><font color="#800000">是否要去做这个大步骤</font><font color="#0000FF">”的问题，而</font><font color="#FF0000">不解决</font><font color="#0000FF">“</font><font color="#800000">这个大步骤是否要再做一遍</font><font color="#0000FF">”的问题；如果想在大步骤开始后，等待某一物品的出现，请使用下面要提到的，在Step中的“</font><font color="#800000">拥有物品</font><font color="#0000FF">”指令</font></b><font color="#000080"><br>
+　</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#000080">“<b>Purpose</font><font color="#FF0000">N</font><font color="#000080">_AllowCount</font></b><font color="#000080">”，描述第</font><font color="#FF0000">N</font><font color="#000080">个目的有几种满足条件（</font><b><font color="#0000FF">其中任意一种满足，就判断为满足，即为“或”的关系</font></b><font color="#000080">），</font><font color="#FF0000">N</font><font color="#000080">从0开始<br>
+　</font></li>
+  <li>
+<p align="left"><font color="#000080">“<b>Purpose</b></font><b><font color="#FF0000">N</font><font color="#000080">_Allow</font><font color="#FF0000">X</font></b><font color="#000080">”,描述第</font><font color="#FF0000">N</font><font color="#000080">个目的里面的第</font><font color="#FF0000">X</font><font color="#000080">种条件，</font><font color="#FF0000">N</font><font color="#000080">和</font><font color="#FF0000">X</font><font color="#000080">从</font><b><font color="#0000FF">0</font></b><font color="#000080">开始<br>
+格式：指令,参数1,参数2,参数3<br>
+目前支持的指令是：<br>
+1、“</font><font color="#0000FF">物品</font><font color="#000080">”，其中</font>
+  <ul>
+    <li>
+<p align="left"><font color="#000080">参数1为物品名称</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数2为物品制作者</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数3为应该有几个物品</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数1和2可以有一项空着（但是不要省略逗号），那么就是任意名称或者制作者（最好不要这样）</font></p>
+    </li>
+  </ul>
+<font color="#000080">2、“</font><font color="#0000FF">宠物</font><font color="#000080">”其中</font>
+
+  <ul>
+    <li>
+<p align="left"><font color="#000080">参数1为宠物名称</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数2为宠物应该不低于的忠诚度</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数3为应该有几个宠物</font></p>
+
+    </li>
+  </ul>
+<font color="#000080">3、“</font><font color="#0000FF">状态</font><font color="#000080">”其中</font>
+
+  <ul>
+    <li>
+<p align="left"><font color="#000080">参数1为目前人物所在状态，有效值为“普通”、“战斗”、“对话”</font></p>
+
+    </li>
+  </ul>
+<font color="#000080">4、“</font><font color="#0000FF">地图</font><font color="#000080">”其中</font>
+
+  <ul>
+    <li>
+<p align="left"><font color="#000080">参数1为地图ID；如果没有参数2和3，就不对坐标进行要求</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数2为在幻灵地图中的坐标X</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">参数3为在幻灵地图中的坐标Y</font></p>
+
+    </li>
+  </ul>
+<font color="#000080">5、“</font><font color="#0000FF">人物</font><font color="#000080">”其中</font>
+
+  <ul>
+    <li>
+<p align="left"><font color="#000080">参数1在目前的有效值是“</font><font color="#0000FF">等级</font><font color="#000080">”、“</font><font color="#0000FF">武功数</font><font color="#000080">”、“</font><font color="#0000FF">生命百分比</font><font color="#000080">”</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">
+在参数1为“</font><font color="#0000FF">等级</font><font color="#000080">”时：参数2，为人物的称号，有效值为：“</font><font color="#0000FF">凡人</font><font color="#000080">”、“</font><font color="#0000FF">散仙</font><font color="#000080">”、“</font><font color="#0000FF">地仙</font><font color="#000080">”、“</font><font color="#0000FF">夜叉</font><font color="#000080">”、“</font><font color="#0000FF">天仙</font><font color="#000080">”、“</font><font color="#0000FF">阿修罗</font><font color="#000080">”、“</font><font color="#0000FF">大罗金仙</font><font color="#000080">”、“</font><font color="#0000FF">魔神</font><font color="#000080">”、“</font><font color="#0000FF">天神</font><font color="#000080">”、“</font><font color="#0000FF">魔尊</font><font color="#000080">”；如果为空，就不进行称号的判断（</font><b><font color="#0000FF">注意不能省略逗号</font></b><font color="#000080">）<br>
+参数3为人物的等级，格式为xx-yy，指等级在xx到yy的范围中；如果没有-yy，那么就是指等级为xx</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">
+在参数1为“</font><font color="#0000FF">武功数</font><font color="#000080">”时，参数2可以为具体的数值，或者为“※限制数”，这样就是可以达到的最多武功数</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">在参数1为“</font><font color="#0000FF">生命百分比</font><font color="#000080">”时，参数2为下限，参数3为上限；比如想30%-50%，那么参数2就为30，参数3就为50<br>
+　</font></p>
+
+    </li>
+  </ul>
+
+  </li>
+  <li>
+<p align="left"><font color="#000080">“<b>StepCount</b>”，说明这个大步骤应该有几个小步骤完成<br>
+　</font></p>
+
+  </li>
+  <li>
+<p align="left"><font color="#000080">“<b>Step</b></font><b><font color="#FF0000">N</font></b><font color="#000080">”，描述第</font><font color="#FF0000">N</font><font color="#000080">个小步骤<br>
+格式：指令,参数1,参数2,参数3<br>
+目前支持的指令是：</font>
+
+  <ul>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">来到地图</font><font color="#000080">”，参数1为要去的地图的ID，可以在map.ini中查到</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">移动位置</font><font color="#000080">”，移动到当前地图某个坐标上，</font><font color="#0000FF">参数1</font><font color="#000080">和</font><font color="#0000FF">参数2</font><font color="#000080">是要当前地图的坐标</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">右键单击</font><font color="#000080">”，在屏幕上点击右键，</font><font color="#0000FF">参数1</font><font color="#000080">和</font><font color="#0000FF">参数2</font><font color="#000080">为要点击的相对屏幕坐标，</font><font color="#0000FF">参数3</font><font color="#000080">为点击后出现的对话框文字
+，（可以省略，但可能会判断失误）</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">左键单击</font><font color="#000080">”，在屏幕上点击左键，参数和</font><font color="#0000FF">右键单击</font><font color="#000080">相同
+。如果</font><font color="#0000FF">参数3</font><font color="#000080">为“◎战斗状态”，那么就说明点击后需要进入战斗状态；如果</font><font color="#0000FF">参数3</font><font color="#000080">为“◎普通状态”，那么就说明点击后需要进入普通状态</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">点击按钮</font><font color="#000080">”，点某个按钮，</font><font color="#0000FF">参数1</font><font color="#000080">为这个按钮的窗口名称，</font><font color="#0000FF">参数2</font><font color="#000080">为这个按钮父窗口的名称，</font><font color="#0000FF">参数3</font><font color="#000080">为点击后出现的窗口的名称</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">正在战斗</font><font color="#000080">”，说明现在应当出于战斗状态，</font><font color="#0000FF">参数1</font><font color="#000080">有两个有效值“</font><font color="#0000FF">普通</font><font color="#000080">”，“</font><font color="#0000FF">过劫</font><font color="#000080">”，分别对应不同战斗情况；</font><font color="#0000FF">参数2</font><font color="#000080">如果是“</font><font color="#0000FF">对话</font><font color="#000080">”，表明战斗后应当出现对话框，出现的内容就是</font><font color="#0000FF">参数3</font><font color="#000080">中描述的内容 
+，</font><font color="#0000FF">参数2</font><font color="#000080">如果是“</font><font color="#0000FF">普通</font><font color="#000080">”，表明战斗后进入普通状态</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">停止工作</font><font color="#000080">”，有的时候，我们会</font><font color="#0000FF">用Purposes来控制脚本的停止</font><font color="#000080">，这个命令就是处理这个问题的，</font><font color="#0000FF">参数1</font><font color="#000080">是停止工作后欢乐幻灵要显示的提示信息</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">呼叫NPC</font><font color="#000080">”，</font><font color="#0000FF">在可以呼叫NPC的地方</font><font color="#000080">呼叫，</font><font color="#0000FF">参数1</font><font color="#000080">为NPC的名字<br>
+允许呼叫的NPC的名字：</font><font color="#0000FF">水城铁匠</font><font color="#000080">,
+</font><font color="#0000FF">水城药店大夫</font><font color="#000080">, </font>
+<font color="#0000FF">水城饰物店老板</font><font color="#000080">, </font>
+<font color="#0000FF">水城宠物饲养员</font><font color="#000080"><br>
+&nbsp;注意：对于“水城铁匠”、“水城药店大夫”和“水城饰物店老板”，必须在某个城中或者是某个药店、饰物店里才可呼叫；对于“水城宠物饲养员”，必须在某个宠物店里面才可呼叫</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">购买物品</font><font color="#000080">”，在幻灵商店中买某个物品，</font><font color="#0000FF">参数1</font><font color="#000080">是购买物品的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为购买物品的制作者，</font><font color="#0000FF">参数3</font><font color="#000080">为购买的数目
+，如果不指定，就买满为止<br>
+注意1：如果身上的该物品数目已经达到了参数3的值，就不会再多购买<br>
+注意2：购买物品后，不会关闭幻灵商店，必须要用</font><font color="#0000FF">离开商店</font><font color="#000080">来关闭幻灵商店；这也方便连续几个Step买在同一个药店不同的物品</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">离开商店</font><font color="#000080">”，离开幻灵商店</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">进行锻造</font><font color="#000080">”，开启五行炉进行炼化，</font><font color="#0000FF">参数1</font><font color="#000080">是本次开启五行炉后要做的事情的数据描述节（比如，如果参数1是ForgeN，那么就到[ForgeN]处找描述）</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">拥有物品</font><font color="#000080">”，等待用户身上的某个物品达到指定的数目
+（多于或者等于）再继续下一步，</font><font color="#0000FF">参数1</font><font color="#000080">是物品的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为物品的制作者，</font><font color="#0000FF">参数3</font><font color="#000080">为物品需要达到的数目</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">物品数目</font><font color="#000080">”，只有当用户身上的某个物品数目</font><font color="#FF0000">正好</font><font color="#000080">为指定数目的时候，再继续下一步，</font><font color="#0000FF">参数1</font><font color="#000080">是物品的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为物品的制作者，</font><font color="#0000FF">参数3</font><font color="#000080">为物品的数目</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">跳至步骤</font><font color="#000080">”，跳转至第</font><font color="#0000FF">N</font><font color="#000080">个大步骤，</font><font color="#0000FF">参数1</font><font color="#000080">是大步骤号</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">拥有宠物</font><font color="#000080">”，</font><font color="#0000FF">参数1</font><font color="#000080">为宠物的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为宠物需要达到的忠诚，</font><font color="#0000FF">参数3</font><font color="#000080">为宠物需要达到的数目</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">宠物数目</font><font color="#000080">”，</font><font color="#0000FF">参数1</font><font color="#000080">为宠物的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为宠物需要达到的忠诚，</font><font color="#0000FF">参数3</font><font color="#000080">为宠物限定的数目</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">取消对话</font><font color="#000080">”，安全地取消对话，可用于战斗后留在天关</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">定位窗口</font><font color="#000080">”，</font><font color="#0000FF">参数1</font><font color="#000080">为窗口名称，</font><font color="#0000FF">参数2</font><font color="#000080">为父窗口名名称（如果没有，可以不填）,</font><font color="#0000FF">参数3</font><font color="#000080">如果没有，就代表是父窗口地直接子窗口，如果值为“间接”，那么就代表是间接子窗口；注意，这个指令必须在</font><font color="#0000FF">窗口单击</font><font color="#000080">和</font><font color="#0000FF">窗口双击</font><font color="#000080">的前一个Step才能起作用</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">窗口单击</font><font color="#000080">”，模拟在某个窗口中单击左键，</font><font color="#0000FF">参数1</font><font color="#000080">为窗口名称
+，如果为“</font><font color="#0000FF">※</font><font color="#000080">”，就使用在</font><font color="#0000FF">定位窗口</font><font color="#000080">指令中选择的窗口，</font><font color="#0000FF">参数2、3</font><font color="#000080">为X、Y相对坐标</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">窗口双击</font><font color="#000080">”，模拟在某个窗口中双击左键，</font><font color="#0000FF">参数1</font><font color="#000080">为窗口名称，
+如果为“</font><font color="#0000FF">※</font><font color="#000080">”，就使用在</font><font color="#0000FF">定位窗口</font><font color="#000080">指令中选择的窗口，</font><font color="#0000FF">参数2、3</font><font color="#000080">为X、Y相对坐标</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">等待延时</font><font color="#000080">”，延时一段时间，参数1是毫秒数</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">捉宠设置</font><font color="#000080">”，</font><font color="#0000FF">参数1</font><font color="#000080">为要捉的宠物名称，</font><font color="#0000FF">参数2</font><font color="#000080">为要捉的宠物的最低级别，</font><font color="#0000FF">参数3</font><font color="#000080">为要捉的宠物的最高级别</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">进入战斗</font><font color="#000080">”，</font><font color="#0000FF">参数1</font><font color="#000080">为人物动作（攻击、防御、捉宠），</font><font color="#0000FF">参数2</font><font color="#000080">为宠物动作（攻击、防御），</font><font color="#0000FF">参数3</font><font color="#000080">为如果捉宠没有找到目标时的动作（战斗、逃跑）；注意，这个指令只是使进入战斗，但并不实际战斗，需要用</font><font color="#0000FF">正在战斗</font><font color="#000080">指令进行配合</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">窗口右键</font><font color="#000080">”，模拟在某个窗口中单击右键，</font><font color="#0000FF">参数1</font><font color="#000080">为窗口名称
+，如果为“</font><font color="#0000FF">※</font><font color="#000080">”，就使用在</font><font color="#0000FF">定位窗口</font><font color="#000080">指令中选择的窗口，</font><font color="#0000FF">参数2、3</font><font color="#000080">为X、Y相对坐标</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">等待窗口</font><font color="#000080">”，一直等待到指定的窗口出现；</font><font color="#0000FF">参数1</font><font color="#000080">为窗口名称，</font><font color="#0000FF">参数2</font><font color="#000080">为父窗口名名称（如果没有，可以不填）,</font><font color="#0000FF">参数3</font><font color="#000080">如果没有，就代表是父窗口地直接子窗口，如果值为“间接”，那么就代表是间接子窗口</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">开物品栏</font><font color="#000080">”，打开物品栏窗口</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">关物品栏</font><font color="#000080">”，关闭物品栏窗口</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">使用物品</font><font color="#000080">”，使用某个物品，</font><font color="#0000FF">参数1</font><font color="#000080">是物品的名称，</font><font color="#0000FF">参数2</font><font color="#000080">为物品的制作者</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">武功参数</font><font color="#000080">”，设置武功参数，</font><font color="#0000FF">参数1</font><font color="#000080">为武功名称，</font><font color="#0000FF">参数2</font><font color="#000080">为创招系数，</font><font color="#0000FF">参数3</font><font color="#000080">为使用内力</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">武功外观</font><font color="#000080">”，设置武功外观，</font><font color="#0000FF">参数1</font><font color="#000080">为起手姿势，</font><font color="#0000FF">参数2</font><font color="#000080">为飞行轨迹，</font><font color="#0000FF">参数3</font><font color="#000080">为爆炸方式</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">自创武功</font><font color="#000080">”，开始自创武功（一次只创一招）</font></p>
+
+    </li>
+    <li>
+<p align="left"><font color="#000080">“</font><font color="#0000FF">删除武功</font><font color="#000080">”，开始删除武功，</font><font color="#0000FF">参数1</font><font color="#000080">为从第几招删，</font><font color="#0000FF">参数2</font><font color="#000080">可以为空，也可以为“</font><font color="#0000FF">保留容易”</font><font color="#000080"><br>
+　</font></p>
+
+    </li>
+  </ul>
+  </li>
+</ul>
+
+<p align="left"><font color="#800080" size="4">3、[<b>ForgeN</b>]，表明开启一次五行炉后所要做的事情描述</font></p>
+
+    <ul>
+      <li>
+<p align="left"><font color="#000080">“<b>StoveCount</b>”，表明此次开启五行炉后，要炼化多少次</font></p>
+
+      </li>
+      <li>
+<p align="left"><font color="#000080">“<b>Stove</b></font><b><font color="#FF0000">N</font></b><font color="#000080">”，此次五行炉中第</font><font color="#FF0000">N</font><font color="#000080">次炼化的数据描述节
+，</font><font color="#FF0000">N</font><font color="#000080">从</font><b><font color="#0000FF">0</font></b><font color="#000080">开始（比如，如果值是ForgeN_StoveN，那么就到[ForgeN_StoveN]处找描述）</font></p>
+
+      </li>
+</ul>
+<p align="left"><font color="#000080">
+<br>
+</font><font color="#800080">4、[<b>ForgeN_StoveN</b>]，表明一次炼化的描述（开启一次五行炉，可以炼化多次，这里描述一次炼化
+过程）</font></p>
+
+    <ul>
+      <li>
+<p align="left"><font color="#000080">“<b>MainRoomPos</b>”，表明主炼物品的位置（位置代码见下面的数据说明）</font></p>
+
+      </li>
+      <li>
+<p align="left"><font color="#000080">“<b>Room</font><font color="#FF0000">N</font><font color="#000080">_AllowedStuffTypeCount</font></b><font color="#000080">”，第</font><font color="#FF0000">N</font><font color="#000080">个位置允许放入的物品种类数，</font><font color="#FF0000">N</font><font color="#000080">从0开始（值如果为0，就说明不能放物品）</font></p>
+
+      </li>
+      <li>
+<p align="left"><font color="#000080">“<b>Room</font><font color="#FF0000">N</font><font color="#000080">_AllowedStuffType</font><font color="#FF0000">X</font><font color="#000080">_Name</font></b><font color="#000080">”，第</font><font color="#FF0000">N</font><font color="#000080">个位置允许放入的第</font><font color="#FF0000">X</font><font color="#000080">种物品的名字，</font><font color="#FF0000">X</font><font color="#000080">从0开始</font></p>
+
+      </li>
+      <li>
+<p align="left"><font color="#000080">“<b>Room</font><font color="#FF0000">N</font><font color="#000080">_AllowedStuffType</font><font color="#FF0000">X</font><font color="#000080">_Attr</font></b><font color="#000080">”，第</font><font color="#FF0000">N</font><font color="#000080">个位置允许放入的第</font><font color="#FF0000">X</font><font color="#000080">种物品的物品属性码（物品属性码见下面的数据说明）</font></p>
+
+      </li>
+      <li>
+<p align="left"><font color="#000080">“<b>Room</b></font><b><font color="#FF0000">N</font><font color="#000080">_AllowedStuffType</font><font color="#FF0000">X</font></b><font color="#000080"><b>_Maker</b>”，第</font><font color="#FF0000">N</font><font color="#000080">个位置允许放入的第</font><font color="#FF0000">X</font><font color="#000080">种物品的制作者<br>
+<br>
+</font><b><font color="#0000FF">大家可以看出来，这个UniverseStove.ini完全避免了炼化物品错误的情况，不会把极限练成飞镖的，嘿嘿</font></b></p>
+
+      </li>
+</ul>
+<p align="left">　</p>
+
+<p align="left"><b><font color="#0000FF">下面结合例子，详细解释，红色的字体是说明</font></b><font color="#000080"><br>
+<br>
+; ----------------------- 以下是数据说明 -----------------------<br>
+; 物品属性：0-剑, 1-刀, 2-锤, 3-腿, 4-环, 5-扇, 6-杖, 7-叉, 8-钩<br>
+; 100-护甲, 200-鞋子, 300-身饰, 400-头饰, 500-暗器, 600-毒药, 700-疗伤药(内药和血药)<br>
+<br>
+; 五行炉中物品位置：0-'乾·金', 1-'兑·金', 2-'离·火', 3-'震·木'<br>
+; 4-'巽·木', 5-'坎·水', 6-'艮·土', 7-'坤·土'<br>
+<br>
+; 允许呼叫的NPC的名字：水城铁匠, 水城药店大夫, 水城饰物店老板, 水城宠物饲养员<br>
+; 对于“水城铁匠”、“水城药店大夫”和“水城饰物店老板”，必须在某个城中或者是某个药店、饰物店里才可呼叫<br>
+; 对于“水城宠物饲养员”，必须在某个宠物店里面才可呼叫<br>
+<br>
+; ----------------------- 以下是行动脚本 -----------------------<br>
+[Main]<br>
+TransactionCount=3&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">说明一共有3个大步骤</font><font color="#000080"><br>
+RepeatCount=2&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">说明整个脚本循环2次</font><font color="#000080"><br>
+<br>
+[Transaction0]&nbsp;&nbsp;&nbsp; </font>
+<font color="#FF0000">第0个大步骤</font><font color="#000080"><br>
+Caption=买水城药店的2个无忧失心草＋1个蒙汗药&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">第0个大步骤的标题</font><font color="#000080"><br>
+PurposeCount=2&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">一共有2个目的
+，这两个目的如果都达到，就不进行这个大步骤</font><font color="#000080"><br>
+Purpose0_AllowCount=1&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">
+第0个目的可以有1种允许情况</font><font color="#000080"><br>
+Purpose0_Allow0=物品,无忧失心草,天晴无名氏,2&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">目的是
+：有物品，2个天晴无名氏做的无忧失心草</font><font color="#000080"><br>
+Purpose1_AllowCount=1<br>
+Purpose1_Allow0=物品,蒙汗药,天晴无名氏,1&nbsp;&nbsp;&nbsp; </font><font color="#0000FF">
+这个就是为了说明一下，其实这个脚本中不用蒙汗药进行锻造</font><font color="#000080"><br>
+StepCount=4&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">这个大步骤一共有5个小步骤</font><font color="#000080"><br>
+Step0=呼叫NPC,水城药店大夫&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">呼叫水城药店大夫</font><font color="#000080">&nbsp;&nbsp;&nbsp;
+<br>
+Step1=购买物品,无忧失心草,天晴无名氏,2<br>
+Step2=购买物品,蒙汗药,天晴无名氏,1&nbsp;&nbsp;&nbsp; </font><font color="#0000FF">蒙汗药是买着玩的</font><font color="#000080"><br>
+Step3=离开商店&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">离开幻灵商店</font><font color="#000080"><br>
+<br>
+[Transaction1]<br>
+Caption=买水城进行锻造店的8个攒心镖<br>
+PurposeCount=1<br>
+Purpose0_AllowCount=1<br>
+Purpose0_Allow0=物品,攒心镖,天晴无名氏,8<br>
+StepCount=4<br>
+Step0=呼叫NPC,水城铁匠<br>
+Step1=点击按钮,确定(&amp;O),锻造店 - 物品分类,幻灵商店&nbsp;&nbsp;&nbsp; </font>
+<font color="#FF0000">点击在“锻造店 - 物品分类”中的“确定(&amp;O)”按钮，点击后要出现“幻灵商店”窗口</font><font color="#000080"><br>
+Step2=购买物品,攒心镖,天晴无名氏,8<br>
+Step3=离开商店<br>
+<br>
+[Transaction2]<br>
+Caption=进行锻造毒药<br>
+StepCount=1<br>
+Step0=进行锻造,Forge0&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">打开五行炉，进行[Forge0]处的描述</font></p>
+
+<p align="left"><font color="#000080">; ----------------------- 以下是脚本数据 -----------------------<br>
+[BuyStuff0]<br>
+StuffCount=2&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">买两个物品</font><font color="#000080"><br>
+Stuff0=无忧失心草&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">买无忧失心草</font><font color="#000080"><br>
+Stuff1=无忧失心草<br>
+<br>
+[BuyStuff1]<br>
+StuffCount=8<br>
+Stuff0=攒心镖<br>
+Stuff1=攒心镖<br>
+Stuff2=攒心镖<br>
+Stuff3=攒心镖<br>
+Stuff4=攒心镖<br>
+Stuff5=攒心镖<br>
+Stuff6=攒心镖<br>
+Stuff7=攒心镖<br>
+<br>
+[Forge0]<br>
+StoveCount=8&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">本次开启五行炉要炼化8次</font><font color="#000080"><br>
+Stove0=Forge0_Stove0&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">第0次，按照[Forge0_Stove0]处的描述进行</font><font color="#000080"><br>
+Stove1=Forge0_Stove0&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">第1次，还是按照[Forge0_Stove0]处的描述进行（都一样，呵呵）</font><font color="#000080"><br>
+Stove2=Forge0_Stove0<br>
+Stove3=Forge0_Stove0<br>
+Stove4=Forge0_Stove0<br>
+Stove5=Forge0_Stove0<br>
+Stove6=Forge0_Stove0<br>
+Stove7=Forge0_Stove0<br>
+; ----------------------- 以下是炼化数据 -----------------------<br>
+[Forge0_Stove0]<br>
+MainRoomPos=1&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">主炼位置，位置代码见上面的数据说明</font><font color="#000080"><br>
+Room0_AllowedStuffTypeCount=0&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">位置0允许放入的物品种类数是0，即不能放物品</font><font color="#000080"><br>
+Room1_AllowedStuffTypeCount=2&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">位置1允许放入2种物品</font><font color="#000080"><br>
+Room1_AllowedStuffType0_Name=无忧失心草&nbsp;&nbsp;&nbsp; </font>
+<font color="#FF0000">位置1允许放入第0种物品的名称为无忧失心草</font><font color="#000080"><br>
+Room1_AllowedStuffType0_Attr=600&nbsp;&nbsp;&nbsp; </font><font color="#FF0000">位置1允许放入第0种物品的属性码为600（毒药），物品属性码见上面的数据说明</font><font color="#000080"><br>
+Room1_AllowedStuffType0_Maker=天晴无名氏&nbsp;&nbsp;&nbsp; </font>
+<font color="#FF0000">位置1允许放入第0种物品的制作者为天晴无名氏</font><font color="#000080"><br>
+Room1_AllowedStuffType1_Name=炼化毒药<br>
+Room1_AllowedStuffType1_Attr=600<br>
+Room1_AllowedStuffType1_Maker=※用户名&nbsp;&nbsp;&nbsp; </font>
+<font color="#FF0000">位置1允许放入第1种物品的制作者为玩家在游戏中的名称</font><font color="#000080"><br>
+Room2_AllowedStuffTypeCount=1<br>
+Room2_AllowedStuffType0_Name=攒心镖<br>
+Room2_AllowedStuffType0_Attr=500<br>
+Room2_AllowedStuffType0_Maker=天晴无名氏<br>
+Room3_AllowedStuffTypeCount=0<br>
+Room4_AllowedStuffTypeCount=0<br>
+Room5_AllowedStuffTypeCount=0<br>
+Room6_AllowedStuffTypeCount=0<br>
+Room7_AllowedStuffTypeCount=0<br>
+; --------------------------------------------------------------</font></p>
+
+    </body>
+
+</html>

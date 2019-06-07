@@ -1,0 +1,430 @@
+unit UnitConsts;
+interface
+
+Uses Messages;
+                                        
+resourcestring
+  IDS_InfoFilesPath 	= '.\Info\';
+  IDS_ScriptFilesPath = '.\Scripts\';
+  IDS_UsersPath       = '.\Users\';
+
+  IDS_StoreFilename       = 'Store.ini';
+  IDS_DefaultMapFileName  = 'Map.ini';
+  RS_UpDateTime	          = '2019.05.29';
+
+  IDS_MainHotKeyInfo    = 'MainHotKeyInfo';
+  IDS_WinInfoHotKeyInfo = 'WinInfoHotKeyInfo';
+  IDS_VirtualKey        = 'VirtualKey';
+  IDS_Modifiers         = 'Modifiers';
+  IDS_ShowText          = 'ShowText';
+
+  IDS_FormTopStr 								= 'Top';
+  IDS_FormLeftStr 							= 'Left';
+  IDS_MainFormName 							= 'Main';
+  IDS_ImageFormName 						= 'Image';
+  IDS_GeneralSetFormName 				= 'Settings';
+  IDS_StuffsFormName 						= 'Inventory';
+  IDS_PetsFormName 							= 'Pets';
+  IDS_UniverseStoveFormName 		= 'Wuxing Oven';
+  IDS_WorkTransactionsFormName 	= 'Script';
+  IDS_WGsFormName 							= '武功窗体';
+	IDS_WGAttrFormName 						= '创招设置';
+  IDS_WG_Name 									= '武功名称';
+  IDS_WG_NameDef 								= '天下无双';
+  IDS_WG_XiShu 									= '武功系数';
+  IDS_WG_NeiLi 									= '武功内力';
+  IDS_WG_ZiShi 									= '起手姿势';
+  IDS_WG_GuiJi 									= '飞行轨迹';
+  IDS_WG_BaoZha 								= '爆炸方式';
+const
+//  AddrHumanBase 	= $006C21FC;
+//  AddrBattleState = $006C51DC;
+
+  CustomMouseMsg = WM_USER + 1;
+  CustomIID = 100;
+
+  // 定义的动作代码，用在Work.ini里面
+  ActUnknown 					= -1;  	// 未知指令---------------------------------------
+  ActLeftClick 				= 0;		// 左键单击
+  ActRightClick				= 1;    // 右键单击
+  ActMoveToPos				= 10;   // 移动位置：移动到地图内的某个坐标
+  ActGoToMap					= 20; 	// 来到地图：移动到指定地图
+  ActInBattle					= 30;   // 正在战斗
+  ActBuyStuff					= 40;   // 购买物品
+  ActDoForge					= 50;		// 进行锻造
+  ActQuitShop					= 60;   // 离开商店
+  ActPressButton			= 70;		// 点击按钮
+  ActCallNPC					= 80;		// 呼叫 NPC
+  ActTerminate				= 90;		// 停止工作
+  ActHaveStuff				= 100;	// 拥有物品：等待满足此物品，达到指定数量级
+  ActStuffNum					= 110;	// 物品数目：等待满足此物品，等于指定数量级
+  ActJumpToTransN			= 120;	// 跳至步骤 N
+  ActHavePet					= 130;  // 拥有宠物：等待满足此宠物，达到指定数量级
+  ActPetNum						= 140;  // 宠物数目：等待满足此宠物，等于指定数量级
+  ActCancelNPCDialog	= 150;	// 取消对话
+  ActWinLeftClick			= 160;	// 窗口单击
+  ActWinLeftDblClick	= 170;	// 窗口双击
+  ActDelay						= 180;	// 等待延时
+  ActActiveBattle			= 190;  // 进入战斗
+  ActSetCapture				= 200;  // 捉宠设置
+  ActLocateWindow			= 210;	// 定位窗口
+  ActWinRightClick		= 220;	// 窗口右键
+  ActWaitWindow				= 230;	// 等待窗口
+  ActCreateWG					= 240;	// 自创武功
+  ActUseItem					= 250;	// 使用物品
+  ActOpenItemWindow		= 260;  // 开物品栏
+  ActCloseItemWindow	= 270;	// 关物品栏
+  ActSetWGAttr				= 280;  // 武功参数
+  ActSetWGDisp				= 290;	// 武功外观
+  ActDeleteWGs				= 300;	// 删除武功
+
+//  UserIDAddr	= $006c2200;  // Old HL_Base_Address
+
+  HL_EXE_Name				= 'HL_Client.exe';
+  //UserNameAddress		= $006c2244; CN
+  //UserNickAddress		= $006c2254;
+  //UserSpouseAddress	= $006c2264;
+  UserNameAddress		= $006BB974;
+  UserNickAddress		= $006BB984;
+  UserSpouseAddress	= $006BB994;
+  UserNameSize			= 16;
+  UserIdAddress     = $006BB930;
+
+  //UserMoneyAddress	= $6c2214;
+  UserMoneyAddress	= $6BB944;
+
+  // Level, cultivation(?)
+  //UserLevelAddr			= $006c2206; // WORD  CN
+  //UserBaseXiuAddr		= $006C3478;  // DWORD
+  UserLevelAddr			= $6BB936; // WORD
+  UserBaseXiuAddr		= $6BCBA8;  // DWORD
+
+  // User rank: master=5
+//  UserRankAddr = $006c2208; // WORD CN
+  UserRankAddr = $6BB938; // WORD
+
+  // 人物仙魔地址：仙=1，魔=2, 凡人/散仙=0
+  //UserXianmo_1Xian_2Mo 	= $006C346C; // WORD CN
+  UserXianmo_1Xian_2Mo 	= $6BCB9C; // WORD
+  UserAttrXian 					= 1; // 仙
+  UserAttrMo 						= 2; // 魔
+
+  // 人物五转职业：
+  //User5TurnCareer	= $006C3470; // WORD
+  User5TurnCareer	= $6BCBA0; // WORD
+
+  // Life current/max
+  //UserLifeCurrAddr	= $006c220A; // WORD   CN
+  //UserLifeMAXAddr		= $006c220c; //WORD
+  UserLifeCurrAddr	= $6BB93A; // WORD
+  UserLifeMAXAddr		= $6BB93C; //WORD
+
+  // Mana current/max
+  //UserNeiliCurrAddr	= $006c220e;  // WORD  CN
+  //UserNeiliMAXAddr	= $006c2210;  // WORD
+  UserNeiliCurrAddr	= $6BB93E;  // WORD
+  UserNeiliMAXAddr	= $6BB940;  // WORD
+
+  // 5 attributes
+  //UserAttribTiliAddr			= $006c2230; // WORD  CN
+  //UserAttribNeigongAddr		= $006c2238; // WORD
+  //UserAttribGongjiAddr		= $006c2234; // WORD
+  //UserAttribFangyuAddr		= $006c2232; // WORD
+  //UserAttribQinggongAddr	= $006c2236; // WORD
+  UserAttribTiliAddr			= $6BB960; // WORD  hp
+  UserAttribNeigongAddr		= $6BB968; // WORD  mp
+  UserAttribGongjiAddr		= $6BB964; // WORD  atk
+  UserAttribFangyuAddr		= $6BB962; // WORD  def
+  UserAttribQinggongAddr	= $6BB966; // WORD  dex
+
+  // User coordinates on map
+  //UserPosXAdress	= $006c22a8; CN
+  //UserPosYAdress	= $006c22ac;
+  UserPosXAdress	= $006BB9D8;
+  UserPosYAdress	= $006BB9DC;
+
+  // 用户所在的地图的ID、名称的地址
+  //UserCurMapAddress			= $006c4630;  // DWORD
+  //UserCurMapNameAddress	= $006c45A0;  // 16 Bytes
+  UserCurMapAddress			= $006BDD60;  // DWORD
+  UserCurMapNameAddress	= $006BDCD0;  // 16 Bytes
+
+  // 用户所处环境状态地址；状态：3f1-战斗，3f2-平时，3f3-与NPC对话
+  UserEnvironmentAdress	= $0066C0B8; // WORD
+  UserEnvSwitchMap			= $3f0;
+  UserEnvBattle					= $3f1;
+  UserEnvNormal					= $3f2;
+  UserEnvDialog					= $3f3;
+  UserEnvSomeAboutDealingPostClickMessage = $3f4;
+
+  // 用户身上武器、衣服、鞋子、身饰、头饰的偏移
+  //UserWuqiOnBodyAddress			= $006c39a4;
+  //UserHujiaOnBodyAddress		= $006c39a8;
+  //UserXieziOnBodyAddress		= $006c39ac;
+  //UserShenshiOnBodyAddress	= $006c39b0;
+  //UserToushiOnBodyAddress		= $006c39b4;
+  UserWuqiOnBodyAddress			= $6BD0D4;
+  UserHujiaOnBodyAddress		= $6BD0D8;
+  UserXieziOnBodyAddress		= $6BD0DC;
+  UserShenshiOnBodyAddress	= $6BD0E0;
+  UserToushiOnBodyAddress		= $6BD0E4;
+
+  // 与对话指针的指针
+  //NPCDialogAddressAddress		= $6c6f60;
+  NPCDialogAddressAddress		= $6C06C0;
+
+  // 对话数据的长度
+  NPCDialogLength	= $200;
+
+  // $006c39a0($006c39c0) 是一个指针的指针的base地址
+
+  // 用户物品栏里面物品数目的地址
+  //UserItemCountAddress	= $006c39ec;
+  UserItemCountAddress	= $6BD11C;
+
+  // 用户物品指针的指针
+  //UserFirstItemAddressAddress	= $006c39c4;
+  UserFirstItemAddressAddress	= $006BD0F4;
+
+  // 宠物指针的指针
+  //UserFirstPetAddressAddress	= $006C3A0C;
+  UserFirstPetAddressAddress	= $6BD13C;
+
+  // 宠物数据的大小
+  UserPetSize	= $B4;
+
+  // 宠物数目的地址
+  //UserPetCountAddress	= $006c3a34;
+  UserPetCountAddress	= $6BD164;
+
+  // 物品信息数据大小
+  UserItemInfoSize=$60;
+
+  // 以下是物品类型
+  ItemJian					= 0; // 剑
+  ItemDao						= 1; // 刀
+  ItemChui					= 2; // 锤
+  ItemTui						= 3; // 腿
+  ItemHuan					= 4; // 环
+  ItemShan					= 5; // 扇
+  ItemZhang					= 6; // 杖
+  ItemCha						= 7; // 叉
+  ItemGou						= 8; // 钩
+  ItemHujia					= 100; // 护甲
+  ItemXiezi					= 200; // 鞋子
+  ItemShenshi				= 300; // 身饰
+  ItemToushi				= 400; // 头饰
+  ItemAnqi					= 500; // 暗器
+  ItemDuyao					= 600; // 毒药
+  ItemLiaoshangyao	= 700; // 疗伤药，注：内药和血药
+
+  ItemUnknown				=	800; // 不知道是什么，估计是任务用品
+
+  // 老虎机 投币 位置
+  TigerMachinePutCoinX	= '263';
+  TigerMachinePutCoinY	= '84';
+
+  // 老虎机 "3" 位置
+  TigerMachineCheckX	= '426';
+  TigerMachineCheckY	= '151';
+
+  // 游戏主窗口
+  PlayLeftJust		= 29;
+  PlayRightJust		= -31;
+  PlayTopJust			= 58;
+  PlayBottomJust	= -132;
+
+  // 主面板窗口
+  PnlMainTitle		= 'pnlMain';
+
+  // 物品/装备窗口
+  ItemWindowTitle	= 'Item/Equipment';
+
+  // “装备” 按钮
+  ItemButtonX	= 630;
+  ItemButtonY	= 450;
+
+  // 以下是物品栏内15个位置
+  Item1X	=	395;
+  Item1Y	= 75;
+
+  Item2X	= 440;
+  Item2Y	= 75;
+
+  Item3X	= 485;
+  Item3Y	= 75;
+
+  Item4X	= 535;
+  Item4Y	= 75;
+
+  Item5X	= 395;
+  Item5Y	= 120;
+
+  Item6X	= 440;
+  Item6Y	= 120;
+
+  Item7X	= 485;
+  Item7Y	= 120;
+
+  Item8X	= 530;
+  Item8Y	= 120;
+
+  Item9X	= 395;
+  Item9Y	= 170;
+
+  Item10X	= 440;
+  Item10Y	= 170;
+
+  Item11X	= 490;
+  Item11Y	= 170;
+
+  Item12X	= 530;
+  Item12Y	= 170;
+
+  Item13X	= 395;
+  Item13Y	= 215;
+
+  Item14X	= 440;
+  Item14Y	= 215;
+
+  Item15X	= 485;
+  Item15Y	= 210;
+
+  // 用户招的数目地址
+  //UserWGCountAddress				= $006c3a7c;
+  UserWGCountAddress				= $6BD1AC;
+
+  // 用户招式指针的指针
+  //UserFirstWGAddressAddress	= $006c3a54;
+  UserFirstWGAddressAddress	= $6BD184;
+
+  // 招式数据
+  // 名称[16];创招人[16];[4];武功ID[4];起手[4];轨迹[4];爆炸[4];等级[4];内力[4];显示系数*100[4];[12];实际系数与显示系数的比值[4];[16];[8];经验[4];...
+
+  // 招式数据长度
+  UserWGDataLength				= $6c;
+
+  // 创招 招式名称
+  CreateWG_MC_LeftJust		= 112;
+  CreateWG_MC_RightJust		= -50;
+  CreateWG_MC_TopJust			= 54;
+  CreateWG_MC_BottomJust	= -343;
+
+  // 创招 杀伤系数
+  CreateWG_XS_LeftJust		= 112;
+  CreateWG_XS_RightJust		= -50;
+  CreateWG_XS_TopJust			= 78;
+  CreateWG_XS_BottomJust	= -319;
+
+  // 创招 使用内力
+  CreateWG_NL_LeftJust		= 112;
+  CreateWG_NL_RightJust		= -50;
+  CreateWG_NL_TopJust			= 102;
+  CreateWG_NL_BottomJust	= -295;
+
+  // 创招 起手姿势
+  CreateWG_QS_LeftJust		= 112;
+  CreateWG_QS_RightJust		= -50;
+  CreateWG_QS_TopJust			= 239;
+  CreateWG_QS_BottomJust	= -158;
+
+  // 创招 飞行轨迹
+  CreateWG_GJ_LeftJust		= 112;
+  CreateWG_GJ_RightJust		= -50;
+  CreateWG_GJ_TopJust			= 265;
+  CreateWG_GJ_BottomJust	= -132;
+
+  // 创招 爆炸方式
+  CreateWG_BZ_LeftJust		= 112;
+  CreateWG_BZ_RightJust		= -50;
+  CreateWG_BZ_TopJust			= 291;
+  CreateWG_BZ_BottomJust	= -106;
+
+  // 炼化菜单
+  IDM_UniverseStove	= 20;
+
+  // 创招菜单ID
+  IDM_CreateWG			= 22;
+
+  // 人物属性菜单ID
+  IDM_HumanAttr	= 73;
+
+  // 战斗菜单ID
+  IDM_Battle		= 88;
+
+  // 物品菜单ID
+  IDM_Item			= 74;
+
+
+  // 战斗状态的地址
+//  BattleStateAddr	= $006c51dc;
+  BattleStateAddr	= $6BE90C;
+
+  // 战斗指令的地址
+//  BattleOrderAddr	= $006c6018;
+  BattleOrderAddr	= $6BF748;
+
+  // 战斗指令数据的大小
+  BattleOrderSize	= $1c;
+  // 战斗指令状态[4], 人物动作[4]，人物动作对象[4]，[4]，宠物动作[4]，宠物动作对象[4]，[4]
+  //Combat command status [4], character action [4], character action object [4], [4], pet action [4], pet action object [4], [4]
+
+  // Autofight 0-no 1-yes
+//  BattleIsAutoFightAddr	= $006c6260;
+  BattleIsAutoFightAddr	= $6BF990;
+
+  // 是否快速战斗  0-不是，1-是
+//  BattleIsFastFightAddr	= $006c6478;
+  BattleIsFastFightAddr	= $6BFBA8;
+
+  // 战斗时生物的数据大小
+  CreatureInfoSize			= $70;
+
+  // 战斗怪物数（不大于5）地址
+  // 6c627c
+
+  // 战斗死掉的怪物数地址
+//  DeadMonsterCountAddr	= $6c626c;
+  DeadMonsterCountAddr	= $6BF99C;
+
+  // 战斗时生物的数目（包括自己和宠）的地址
+//  BattleCreatureCountAddress	= $006c5144;
+  BattleCreatureCountAddress	= $6BE874;
+
+  // 战斗时生物指针的指针
+//  BattleFirstCreatureAddressAddress	= $006c511c;
+  BattleFirstCreatureAddressAddress	= $6BE84C;
+
+  // 战斗时的动作
+  BattleAttack	= 0;
+  BattleMagic		= 1; // 这个时候，BattleBufferRemain1就是要练的拳
+  BattleDefence	= 2;
+  BattleCapture	= 6;
+  BattleEscape	= 5;
+  BattleIdle		= 3;
+  BattleEat			= 9; // 这个时候，BattleBufferRemain1就是要吃的药的ID
+
+  DelWGRemainEasyWG	= -1;
+  DelWGNoIndicator	= -2;
+
+  // 用户炼化经验地址
+  //UserLianhuaExpAddr	= $006c2220;
+  UserLianhuaExpAddr	= $6BB950;
+
+  // Oven item type
+  StoveRoomVide	= $4D2;
+  StoveRoomPet	= $4D4;
+  StoveRoomItem	= $4D6;
+
+  DialogControlAddr	= $6c6d40; // 控制是否是对话框状态的地址
+
+  // 从Exported Entry可得到
+
+  // 幻灵FormMain
+//  HL_FormMainAddrAddrAddr	= $006ab338;
+
+  // 幻灵UniverseStoveForm
+//HL_UniverseStoveFormAddressAddress = $006abb08;
+  HL_UniverseStoveFormAddressAddress = $006A8568;
+implementation
+end.

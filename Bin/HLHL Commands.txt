@@ -1,0 +1,158 @@
+Purpose Types:
+Item: name, maker, count
+Pet: name, loyalty, count
+State: (Normal,Dialogue,Battle)
+Map: mapId, x, y
+Player:
+	Rank: rankName, levelTo-From
+	Life: min%, max%
+
+--------------------	
+
+Action Types:
+LeftClick
+	X - x coordinate
+	Y - y coordinate
+	State [NormalState, BattleState, 'Dialogue'] (optional) - Confirms user state before continuing. If dialogue is provided, it checks that the provided dialogue is in the NPC dialogue.
+RightClick
+	X - x coordinate
+	Y - y coordinate
+	'Dialogue' (optional) - Confirms dialogue exists with the provided, it checks that the provided string.
+
+MoveToPos / GoToPos: Move player to provided coordinates
+	X - x coordinate
+	Y - y coordinate
+GoToMap: Travel to a map by ID.
+	MapId - ID of the map to travel to
+
+BattleActive / StartBattle: Initiate a new battle
+	PlayerAction [Atk,Attack,Def,Defend,Capture] - Action for player to take in battle
+	PetAction [Atk,Attack,Def,Defend - Action for pet to take in battle
+	NoCaptureTargetAction [Fight,Flee] - Battle or run when in capture mode and capture target isn't found
+BattleAct: Handles battle
+	VictoryState [Ordinary,Overjob] - Overjob is used to stop script when a test is failed and cannot be retaken.
+	ReturnState [Ordinary,Dialogue] - Specify expected state after battle. 
+CaptureTarget: Specify a capture target for battle
+	MonsterName - name of the monster
+	MinLevel - lowest level to capture
+	MaxLevel - highest level to capture
+SetHeal: Specify healing rules for battle
+	Store - Where to purchase medicine
+		StoreName - name of the store
+	Medicine - What to buy
+		MedicineName - name of the medicine
+	Level - heal at levelup
+		True/False
+	Disable - disable all healing
+		True/False
+	Player/Pet - minimum health
+		healthPercent - percent of minimum health
+
+Terminate: End script 
+	(no arguments)
+JumpToTransaction: Immediately run a transaction
+	Transaction # - number of the transaction to run
+Delay: Tell the program to wait
+	TimeMS - Time in milliseconds to delay
+CancelDialog: Close an open NPC Dialogue
+	(no arguments)
+
+CallNPC: Open a NPC shop
+	NPCName - Name of the npc (See below for available list)
+CloseShop: Closes an open shop
+	(no arguments)
+BuyItem: Purchase an item from an open shop
+	ItemName - Name of the item
+	CreatorName - Name of item creator, [username] for self.
+	Count - number of items to buy, will not exceed inventory size
+HaveItem: Have a minimum number of items
+	ItemName - Name of the item
+	CreatorName - Name of item creator, [username] for self.
+	Count(optional,defaults to 0) - Step completes when you have at least this many of an item
+ItemNum: Have exact count of items
+	ItemName - Name of the item
+	CreatorName - Name of item creator, [username] for self.
+	Count(optional,defaults to 0) - Step completes when you have exactly this many of an item
+
+OpenInv: Open the inventory screen
+	(no arguments)
+UseItem: Use the specified item
+	ItemName - Name of the item
+	CreatorName - Name of item creator, [username] for self.
+	'Skip' - Specify to skip validation of item use (FireVolume for example)
+DropItem: Drop the specified item
+	ItemName - Name of the item
+	CreatorName - Name of item creator, [username] for self.
+	Count(optional) - Number of items to drop. Leave blank for one.
+CloseInv: Close the inventory screen
+	(no arguments)
+Wux: Wux an item
+	Forge # - Wux an item based on configured forge settings
+
+HavePet: Have a minimum number of pets by name
+	PetName - Name of the pet
+	Loyalty(optional, defaults to 0) - Minimum loyalty of pet
+	Count(optional, defaults to 0) - Step completes when you have at least this many of a pet
+PetNum: Have exactly this many of a pet by name
+	PetName - Name of the pet
+	Loyalty(optional, defaults to 0) - Minimum loyalty of pet
+	Count(optional, defaults to 0) - Step completes when you have at least this many of a pet
+
+LocateWindow: Find a window and stop script if not found
+	WindowName - name of the window
+	ParentWindow(optional) - name of the parent window
+	'Indirect'(optional) - Specify if the window is not a child of the main game window
+LeftClickWin: Left click a specific window
+	SourceWindow - Name of source window. Use ¡ù to utilize window from LocateWindow
+	X - x coordinate to click
+	Y - y coordinate to click
+DblLeftClickWin: Double left click a specific window
+	SourceWindow - Name of source window. Use ¡ù to utilize window from LocateWindow
+	X - x coordinate to click
+	Y - y coordinate to click
+RightClickWin: Right click a specific window
+	SourceWindow - Name of source window. Use ¡ù to utilize window from LocateWindow
+	X - x coordinate to click
+	Y - y coordinate to click
+WaitWindow: Wait for a specified window to open
+	WindowName - name of the window
+	ParentWindow(optional) - name of the parent window
+	'Indirect'(optional) - Specify if the window is not a child of the main game window
+PressButton: Press a button on a window and get to a new window
+	ButtonText - button text. Use & to create underscore: OK(&O)
+	SourceWindow - name of the window holding the button
+	DestinationWindow - name of the resulting window
+
+SetKungfuAttr: Define Kungfu attributes for creating
+	Name - name of the kungfu
+	DestructiveIndex - damange rate
+	ManaCost - cost in mana
+SetKungfuEffect: Define the look and effect of the kungfu
+	StartEffect - numeric value of effect
+	FlightEffect - numeric value of effect
+	ExplodeEffect - numeric value of effect
+CreateKungfu: Create kungfu with attribute and effect
+	(no arguments)
+DeleteKungfu: Delete specified kungfu. (Delete rules not clear yet)
+	Index - index 1-10 of kungfu to delete
+	DeleteRule(optional) - Easy,None,custom delete rules
+	DeleteValue(optional, default NoIndicator) - applies to rule type
+
+--------------------
+
+Call NPC Names:
+WaterCity Blacksmith
+TreeCity Blacksmith
+HillCity Blacksmith
+SandCity Blacksmith
+WaterCity Pharmacy
+TreeCity Pharmacy
+HillCity Pharmacy
+SandCity Pharmacy
+SnowCity Pharmacy
+OceanCity Pharmacy
+WaterCity Jeweler
+TreeCity Jeweler
+HillCity Jeweler
+SandCity Jeweler
+WaterCity PetStore

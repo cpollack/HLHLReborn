@@ -1,0 +1,222 @@
+unit UnitWelcome;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Controls, Forms, 
+  Dialogs, StdCtrls, UnitGlobal, UnitConsts, UnitTypesAndVars, ShellAPI;
+
+type
+  TFormWelcome = class(TForm)
+    cmbGameList: TComboBox;
+    btnOK: TButton;
+    lblUpdateTime: TLabel;
+    lblSelectID: TLabel;
+    lblEditer: TLabel;
+    lblLinkBBS: TLabel;
+    lblThank: TLabel;
+    btnExit: TButton;
+    btnRefresh: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure lblLinkBBSClick(Sender: TObject);
+    procedure cmbGameListChange(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnRefreshClick(Sender: TObject);
+    procedure cmbGameListKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+  private
+    { Private declarations }
+    procedure RefreshList;
+  public
+    { Public declarations }                
+  end;
+
+var
+  FormWelcome: TFormWelcome;
+function ShowMe(AOwner: TComponent): boolean;
+implementation
+uses
+  tlhelp32, ClsGames;
+resourcestring
+	rsErr_NotFindHL = '没有找到幻灵游侠，程序将退出！';
+
+{$R *.dfm}
+
+procedure GetHLInfo();
+var
+  s: string;
+  ok: Bool;
+  ProcessListHandle, ProcessHandle: THandle;
+  ProcessStruct: TProcessEntry32;
+  lpBuffer: PChar;
+  lpNumberOfBytes: SIZE_T;
+  myhl: THLInfo;
+begin
+  ProcessListHandle := CreateToolHelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  try
+    ProcessStruct.dwSize := Sizeof(ProcessStruct);
+    ok := Process32First(ProcessListHandle, ProcessStruct);
+
+    while ok do
+    begin
+      s := ExtractFileName(ProcessStruct.szExeFile);
+      if AnsiCompareText(Trim(s), HL_EXE_Name) = 0 then
+      begin
+        ProcessHandle := OpenProcess(PROCESS_ALL_ACCESS, false, ProcessStruct.th32ProcessID);
+        try
+          myhl := THLInfo.Create;
+          myhl.ProcessID := ProcessStruct.th32ProcessID;
+
+          lpBuffer := AllocMem(UserNameSize);
+          ReadProcessMemory(ProcessHandle, Pointer(UserNameAddress), lpBuffer, UserNameSize, lpNumberOfBytes);
+          myhl.UserName := lpBuffer;
+          ReadProcessMemory(ProcessHandle, Pointer(UserNickAddress), lpBuffer, UserNameSize, lpNumberOfBytes);
+          myhl.UserNick := lpBuffer;
+          ReadProcessMemory(ProcessHandle, Pointer(UserSpouseAddress), lpBuffer, UserNameSize, lpNumberOfBytes);
+          myhl.UserSpouse := lpBuffer;
+          FreeMem(lpBuffer, UserNameSize);
+
+          if myhl.ReCalWin > 0 then
+            HLInfoList.Add(myhl)
+          else
+            myhl.Free;
+        finally
+          CloseHandle(ProcessHandle);
+        end;
+      end;
+      ok := Process32Next(ProcessListHandle, ProcessStruct);
+    end;
+  finally
+    CloseHandle(ProcessListHandle);
+  end;
+end;
+
+function FindHL: Boolean;
+begin
+  HLInfoList.Clear;
+  GetHLInfo();
+  Result := HLInfoList.Count > 0;
+  if Result then
+  begin
+    InitNPCs;
+
+    ThisWGAttrs.MC := 'Bien测试武功';
+    ThisWGAttrs.XS := '1';
+    ThisWGAttrs.NL := '100';
+    ThisWGAttrs.QS := '1';
+    ThisWGAttrs.GJ := '1';
+    ThisWGAttrs.BZ := '1';
+  end;
+end;
+
+function ShowMe(AOwner: TComponent): boolean;
+begin
+	Result := False;
+
+  if FindHL = False then
+  begin
+    ShowMessage(rsErr_NotFindHL);
+    Exit;
+  end;
+
+	with TFormWelcome.Create(AOwner) do
+  try
+		if ParamCount > 0 then
+   		if LowerCase(ParamStr(1)) = '-d' then
+        btnOK.Enabled := True;
+  	Result := ShowModal = mrOK;
+  finally
+  	Release;
+  end;
+end;
+
+procedure TFormWelcome.RefreshList;
+var
+  i: integer;
+  myhl: THLInfo;
+begin
+  for i := HLInfoList.Count - 1 downto 0 do
+  begin
+    myhl := HLInfoList.Items[i];
+    if Length(myhl.UserName) <> 0 then
+	    cmbGameList.Items.Add(myhl.UserName);
+  end;
+
+  btnOK.Enabled := cmbGameList.Items.Count > 0;
+  if btnOK.Enabled then
+  begin
+  	cmbGameList.ItemIndex := 0;
+  end;
+end;
+
+procedure TFormWelcome.btnRefreshClick(Sender: TObject);
+begin
+  cmbGameList.Clear;
+  if FindHL then
+    RefreshList;
+end;
+
+procedure TFormWelcome.FormCreate(Sender: TObject);
+begin
+  self.Caption := '欢乐幻灵 Ver ' + GetHLHLVer;
+  lblUpdateTime.Caption := '更新时间：' + RS_UpDateTime; 
+	RefreshList;
+end;
+
+procedure TFormWelcome.lblLinkBBSClick(Sender: TObject);
+// 连接到BBS论坛
+begin
+  ShellApi.ShellExecute(Handle, 'Open', 'Http://bbs.tx51.com', nil, nil, SW_SHOWNORMAL)
+end;
+
+procedure TFormWelcome.cmbGameListChange(Sender: TObject);
+begin
+	if btnOK.CanFocus then btnOK.SetFocus;
+end;
+
+procedure TFormWelcome.FormShow(Sender: TObject);
+begin
+  cmbGameList.SetFocus;
+end;
+
+procedure TFormWelcome.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+var
+  i, ID: integer;
+  myhl: THLInfo;
+  sName: string;
+begin
+	case self.ModalResult of
+  mrOK:
+  begin
+  	sName := cmbGameList.Items[cmbGameList.ItemIndex];
+    ID := -1;
+  	for i := HLInfoList.Count - 1 downto 0 do
+	  begin
+  	  myhl := HLInfoList.Items[i];
+			if myhl.UserName = sName then
+        HLInfoList.SelectIndex := i // 保留
+      else
+        myhl.Clear; // 清空窗口信息
+	  end;
+
+	  HLInfoList.GlobalHL.ReCalWin;
+  	Application.Title := '欢乐幻灵·' + HLInfoList.GlobalHL.UserName;
+  end;
+  mrCancel:
+  	HLInfoList.SelectIndex := -1;
+  end;
+end;
+
+procedure TFormWelcome.cmbGameListKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+	if Key = 13 then
+  	if self.btnOK.CanFocus then
+     	btnOK.Click
+    else if self.btnRefresh.CanFocus then
+    	btnRefresh.Click;
+end;
+
+end.
