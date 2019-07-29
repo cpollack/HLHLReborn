@@ -1,38 +1,54 @@
 [Closed Files]
-File_0=SourceModule,'d:\program files\borland\delphi7\source\rtl\common\classes.pas',0,1,2945,1,2924,0,0
-File_1=SourceModule,'F:\ancl\HL\Source\UnitWelcome.pas',0,1,183,20,199,0,0
-File_2=SourceModule,'F:\ancl\HL\Source\UnitDevelop.pas',0,1,1246,1,1255,1,0
-File_3=SourceModule,'F:\ancl\HL\Source\UnitGeneralSet.pas',0,1,67,14,71,1,0
-File_4=SourceModule,'F:\ancl\HL\test\Unit1.pas',0,1,27,51,29,1,0
-File_5=SourceModule,'d:\program files\borland\delphi7\source\rtl\Sys\sysutils.pas',0,1,11013,1,11015,0,0
-File_6=SourceModule,'F:\ancl\HL\Source\UserApiInterface.pas',0,1,1,35,21,0,0
-File_7=SourceModule,'F:\ancl\HL\Source\UnitSetWGAttr.pas',0,1,294,42,315,0,0
+File_0=SourceModule,'F:\ancl\HL\Source\UnitShowWorkTransactions.pas',0,1,58,39,71,0,0
+File_1=SourceModule,'F:\ancl\HL\Source\UserApiInterface.pas',0,1,1,35,21,0,0
+File_2=SourceModule,'F:\ancl\HL\Source\UnitSetWGAttr.pas',0,1,294,42,315,0,0
+File_3=SourceModule,'F:\ancl\HL\Source\UnitShowWGs.pas',0,1,47,25,64,0,0
+File_4=SourceModule,'F:\ancl\HL\Source\UnitShowUniverseStove.pas',0,1,124,25,141,0,0
+File_5=SourceModule,'F:\ancl\HL\Source\UnitShowPets.pas',0,1,46,25,63,0,0
+File_6=SourceModule,'F:\ancl\HL\Source\UnitShowStuffs.pas',0,1,62,25,79,0,0
+File_7=SourceModule,'F:\ancl\HL\Source\UnitImage.pas',0,1,1,25,35,0,0
+File_8=SourceModule,'d:\program files\borland\delphi7\source\rtl\Win\ShellAPI.pas',0,1,503,1,518,0,0
 
 [Modules]
-Module0=F:\ancl\HL\Source\UnitClasses.pas
-Module1=F:\ancl\HL\Source\UnitShowWorkTransactions.pas
-Module2=F:\ancl\HL\Source\UnitMain.pas
-Module3=F:\ancl\HL\Source\ClsGames.pas
-Module4=F:\ancl\HL\Source\ClsMaps.pas
-Module5=F:\ancl\HL\Source\UnitTimers.pas
-Module6=F:\ancl\HL\Source\UnitGlobal.pas
-Module7=F:\ancl\HL\Source\UnitConsts.pas
-Module8=F:\ancl\HL\Source\Readme.txt
-Module9=F:\ancl\HL\Source\UnitTypesAndVars.pas
+Module0=F:\ancl\HL\Source\Readme.txt
+Module1=F:\ancl\HL\Source\UnitMain.pas
+Module2=F:\ancl\HL\Source\ClsMaps.pas
+Module3=F:\ancl\HL\Source\UnitGeneralSet.pas
+Module4=F:\ancl\HL\Source\UnitTimers.pas
+Module5=F:\ancl\HL\Source\UnitClasses.pas
+Module6=F:\ancl\HL\Source\ClsGames.pas
+Module7=F:\ancl\HL\Source\UnitTypesAndVars.pas
+Module8=F:\ancl\HL\Source\UnitConsts.pas
+Module9=F:\ancl\HL\Source\UnitGlobal.pas
 Count=10
 EditWindowCount=1
 
-[F:\ancl\HL\Source\UnitClasses.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[F:\ancl\HL\Source\UnitShowWorkTransactions.pas]
+[F:\ancl\HL\Source\Readme.txt]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
 [F:\ancl\HL\Source\UnitMain.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[F:\ancl\HL\Source\ClsMaps.pas]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[F:\ancl\HL\Source\UnitGeneralSet.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[F:\ancl\HL\Source\UnitTimers.pas]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
+[F:\ancl\HL\Source\UnitClasses.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -42,17 +58,7 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[F:\ancl\HL\Source\ClsMaps.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[F:\ancl\HL\Source\UnitTimers.pas]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[F:\ancl\HL\Source\UnitGlobal.pas]
+[F:\ancl\HL\Source\UnitTypesAndVars.pas]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -62,17 +68,8 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[F:\ancl\HL\Source\Readme.txt]
+[F:\ancl\HL\Source\UnitGlobal.pas]
 ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[F:\ancl\HL\Source\UnitTypesAndVars.pas]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[F:\ancl\HL\HLHL.bpg]
 FormState=0
 FormOnTop=0
 
@@ -80,7 +77,7 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[F:\ancl\HL\test\Project1.dpr]
+[F:\ancl\HL\HLHL.bpg]
 FormState=0
 FormOnTop=0
 
@@ -90,7 +87,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=10
-CurrentView=6
+CurrentView=0
 View0=0
 View1=1
 View2=2
@@ -106,90 +103,90 @@ MessageView=MessageView@EditWindow0
 Create=1
 Visible=1
 State=0
-Left=131
-Top=78
+Left=2
+Top=250
 Width=1022
-Height=681
+Height=538
 MaxLeft=-4
 MaxTop=-4
 ClientWidth=1014
-ClientHeight=654
-LeftPanelSize=210
-LeftPanelClients=DockSite1
-LeftPanelData=0000040000000000000000000000000000000000000000000001000000000000000009000000446F636B5369746531FFFFFFFF
+ClientHeight=511
+LeftPanelSize=240
+LeftPanelClients=DockSite0
+LeftPanelData=0000040000000000000000000000000000000000000000000001000000000000000009000000446F636B5369746530FFFFFFFF
 RightPanelSize=0
-BottomPanelSize=62
+BottomPanelSize=64
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=0000040000000000F603000000000000023E00000000000000010000000000000000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000F2030000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000F60300000B0000004D65737361676556696577FFFFFFFF
+BottomPanelData=0000040000000000F603000000000000024000000000000000010000000000000000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000F2030000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000000400000000000001000000000004000000000000010000000000040000000000000100000000F60300000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
 Module=F:\ancl\HL\Source\Readme.txt
-CursorX=78
-CursorY=14
+CursorX=41
+CursorY=9
 TopLine=1
 LeftCol=1
 
 [View1]
 Module=F:\ancl\HL\Source\ClsMaps.pas
-CursorX=20
-CursorY=349
-TopLine=334
+CursorX=1
+CursorY=686
+TopLine=663
 LeftCol=1
 
 [View2]
 Module=F:\ancl\HL\Source\ClsGames.pas
-CursorX=23
-CursorY=382
-TopLine=368
+CursorX=26
+CursorY=5
+TopLine=1
 LeftCol=1
 
 [View3]
+Module=F:\ancl\HL\Source\UnitGeneralSet.pas
+CursorX=7
+CursorY=69
+TopLine=67
+LeftCol=1
+
+[View4]
 Module=F:\ancl\HL\Source\UnitConsts.pas
 CursorX=40
 CursorY=13
 TopLine=1
 LeftCol=1
 
-[View4]
+[View5]
 Module=F:\ancl\HL\Source\UnitTypesAndVars.pas
 CursorX=1
 CursorY=91
-TopLine=124
-LeftCol=1
-
-[View5]
-Module=F:\ancl\HL\Source\UnitGlobal.pas
-CursorX=90
-CursorY=41
-TopLine=31
+TopLine=1
 LeftCol=1
 
 [View6]
-Module=F:\ancl\HL\Source\UnitClasses.pas
-CursorX=1
-CursorY=705
-TopLine=685
+Module=F:\ancl\HL\Source\UnitGlobal.pas
+CursorX=84
+CursorY=380
+TopLine=358
 LeftCol=1
 
 [View7]
-Module=F:\ancl\HL\Source\UnitMain.pas
-CursorX=15
-CursorY=847
-TopLine=833
+Module=F:\ancl\HL\Source\UnitClasses.pas
+CursorX=3
+CursorY=54
+TopLine=54
 LeftCol=1
 
 [View8]
-Module=F:\ancl\HL\Source\UnitShowWorkTransactions.pas
-CursorX=39
-CursorY=60
-TopLine=42
+Module=F:\ancl\HL\Source\UnitTimers.pas
+CursorX=1
+CursorY=1246
+TopLine=1229
 LeftCol=1
 
 [View9]
-Module=F:\ancl\HL\Source\UnitTimers.pas
-CursorX=49
-CursorY=74
-TopLine=50
+Module=F:\ancl\HL\Source\UnitMain.pas
+CursorX=1
+CursorY=620
+TopLine=613
 LeftCol=1
 
 [Watches]
@@ -243,14 +240,14 @@ Visible=1
 State=0
 Left=0
 Top=0
-Width=202
-Height=548
+Width=232
+Height=403
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=202
-ClientHeight=548
+ClientWidth=232
+ClientHeight=403
 TBDockHeight=446
-LRDockWidth=246
+LRDockWidth=283
 Dockable=1
 
 [Components]
@@ -316,7 +313,7 @@ LRDockWidth=192
 Dockable=1
 SplitPos=108
 ArrangeBy=Name
-SelectedItem=Caption
+SelectedItem=Name
 ExpandedItems=EdgeBorders,FileTheme,Options,SkinControls
 HiddenCategories=
 
@@ -508,12 +505,12 @@ Visible=1
 State=0
 Left=0
 Top=0
-Width=202
-Height=548
+Width=232
+Height=403
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=202
-ClientHeight=548
+ClientWidth=232
+ClientHeight=403
 TBDockHeight=305
 LRDockWidth=140
 Dockable=1
@@ -525,12 +522,12 @@ State=0
 Left=12
 Top=0
 Width=1002
-Height=62
+Height=64
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1002
-ClientHeight=62
-TBDockHeight=62
+ClientHeight=64
+TBDockHeight=64
 LRDockWidth=443
 Dockable=1
 
@@ -538,6 +535,26 @@ Dockable=1
 DockHostCount=2
 
 [DockSite0]
+DockSiteType=1
+Create=1
+Visible=1
+State=0
+Left=0
+Top=12
+Width=240
+Height=432
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=240
+ClientHeight=432
+TBDockHeight=94
+LRDockWidth=240
+Dockable=1
+TabPosition=0
+ActiveTab=Exploring 
+TabDockClients=CodeExplorer@EditWindow0,ProjectManager
+
+[DockSite1]
 DockSiteType=1
 Create=1
 Visible=1
@@ -556,27 +573,4 @@ Dockable=1
 TabPosition=0
 ActiveTab=Object Inspector
 TabDockClients=PropertyInspector,ObjectTree
-
-[DockSite1]
-DockSiteType=1
-Create=1
-Visible=1
-State=0
-Left=0
-Top=12
-Width=210
-Height=577
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=210
-ClientHeight=577
-TBDockHeight=94
-LRDockWidth=210
-Dockable=1
-TabPosition=0
-ActiveTab=Exploring UnitClasses.pas
-TabDockClients=ProjectManager,CodeExplorer@EditWindow0
-
-[ActiveProject]
-ActiveProject=1
 

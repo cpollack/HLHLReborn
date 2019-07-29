@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="ClsGames.pas"/>
+    <File Path="ClsMaps.pas"/>
+    <File Path="frmTemplate.pas"/>
+    <File Path="frmTemplate.dfm"/>
+    <File Path="frmShowScript.pas"/>
+    <File Path="frmShowScript.dfm"/>
+    <File Path="Readme.txt"/>
+    <File Path="UnitClasses.pas"/>
+    <File Path="UnitConsts.pas"/>
+    <File Path="UnitDevelop.pas"/>
+    <File Path="UnitDevelop.dfm"/>
+    <File Path="UnitGeneralSet.pas"/>
+    <File Path="UnitGeneralSet.dfm"/>
+    <File Path="UnitGlobal.pas"/>
+    <File Path="UnitImage.pas"/>
+    <File Path="UnitImage.dfm"/>
+    <File Path="UnitMain.pas"/>
+    <File Path="UnitMain.dfm"/>
+    <File Path="UnitSetWGAttr.pas"/>
+    <File Path="UnitSetWGAttr.dfm"/>
+    <File Path="UnitShowPets.pas"/>
+    <File Path="UnitShowPets.dfm"/>
+    <File Path="UnitShowStuffs.pas"/>
+    <File Path="UnitShowStuffs.dfm"/>
+    <File Path="UnitShowUniverseStove.pas"/>
+    <File Path="UnitShowUniverseStove.dfm"/>
+    <File Path="UnitShowWGs.pas"/>
+    <File Path="UnitShowWGs.dfm"/>
+    <File Path="UnitShowWorkTransactions.pas"/>
+    <File Path="UnitShowWorkTransactions.dfm"/>
+    <File Path="UnitTimers.pas"/>
+    <File Path="UnitTimers.dfm"/>
+    <File Path="UnitTypesAndVars.pas"/>
+    <File Path="UnitWelcome.pas"/>
+    <File Path="UnitWelcome.dfm"/>
+    <File Path="UserApiInterface.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>
