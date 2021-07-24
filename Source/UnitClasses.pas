@@ -247,9 +247,13 @@ Type
       function DropItem(ID: DWORD):Boolean;
       function FindItemID(Name: String; Maker: String): DWORD;
       function FindItemByType(ItemType: DWORD): DWORD;
+      function FindLifeItem(): DWORD;
       procedure PatchItemWindow;
       procedure UnPatchItemWindow;
       procedure AddStats(statType: String; points: integer);
+      procedure RecordPetStats();
+      procedure GetPetStats(petId: Integer);
+      function GetMarchingPetGrowth(): Single;
 
     Private
   end;
@@ -289,7 +293,7 @@ var
 
 implementation
 
-Uses UnitGlobal;
+Uses UnitGlobal, UnitMain, UnitShowPets, UnitShowStuffs;
      {
 constructor TStep.Create(tmpAct: Integer = ActUnknown;
 	tmpX: String = ''; tmpY: String = ''; tmpZ: String = '');
@@ -432,7 +436,7 @@ end;
 function TTransaction.IsPurposeSatisfied: Boolean;
 // 测试目的是否满足
 var
-  i, j, tmpint: integer;
+  i, j, tmpCount, tmpint: integer;
   tmpString, tmpCase, tmpX, tmpY, tmpZ: String;
   tmpPurpose: PurposeInfo;
   tmpDWORD1, tmpDWORD2: DWORD;
@@ -487,11 +491,33 @@ begin
 
       if tmpCase = 'Item' then
       begin
-        tmpint := ThisUser.FindItemCount(tmpX, tmpY);
-        if tmpint >= strtointdef(tmpZ, 0) then
+        if (tmpX = 'ListFull') or (tmpX = 'Full') then
         begin
-          tmpPurpose.isSatisfied := True;
-          break;
+          ThisUser.GetItems;
+          FormShowStuffs.ShowStuffs;
+          if ThisUser.ItemCount = 15 then
+          begin
+            tmpPurpose.isSatisfied := True;
+            Break;
+          end;
+        end
+        else
+        begin
+          tmpint := ThisUser.FindItemCount(tmpX, tmpY);
+          tmpCount := strtointdef(tmpZ, 0);
+          if tmpZ = '0' then
+          begin
+            if tmpInt = 0 then
+            begin
+              tmpPurpose.isSatisfied := True;
+              break;
+            end;
+          end
+          else if tmpint >= tmpCount then
+          begin
+            tmpPurpose.isSatisfied := True;
+            break;
+          end;
         end;
       end
       else if tmpCase = 'Pet' then
@@ -533,15 +559,44 @@ begin
               Break;
             end;
           end;
+
+          if (tmpY = 'Growth') then
+          begin
+            if ThisUser.GetMarchingPetGrowth() >= StrToFloat(tmpZ) then
+            begin
+              tmpPurpose.isSatisfied := True;
+              Break;
+            end;
+          end;
+        end
+        else if (tmpX = 'ListFull') or (tmpX = 'Full') then
+        begin
+          ThisUser.GetPets;
+          FormShowPets.ShowPets;
+          if ThisUser.PetCount = 5 then
+          begin
+            tmpPurpose.isSatisfied := True;
+            Break;
+          end;
+        end
+        else if tmpX = 'Count' then
+        begin
+          ThisUser.GetPets;
+          FormShowPets.ShowPets;
+          if ThisUser.PetCount >= strToInt(tmpY) then
+          begin
+            tmpPurpose.isSatisfied := True;
+            Break;
+          end;
         end
         else
+        begin
           tmpint := ThisUser.FindPetCount(tmpX, StrToIntDef(tmpY, 1000));
           if tmpint >= strtointdef(tmpZ, 0) then
           begin
             tmpPurpose.isSatisfied := True;
             Break;
           end;
-        begin
         end;
       end
       else if tmpCase = 'State' then
@@ -587,7 +642,7 @@ begin
 
           if tmpint>=2 then
           begin
-            if (tmpY='Junior') or  (tmpY='Senior') or (tmpY='Super') or (tmpY='Master')
+            if (tmpY='Junior God') or  (tmpY='Senior God') or (tmpY='Super God') or (tmpY='Master God')
             then tmpDWORD1:=UserAttrXian
             else tmpDWORD1:=UserAttrMo;
           end
@@ -689,6 +744,7 @@ begin
     else if tmpActionStr='RightClick' then tmpStep.Action:=ActRightClick
     else if tmpActionStr='MoveToPos' then tmpStep.Action:=ActMoveToPos
     else if tmpActionStr='GoToPos' then tmpStep.Action:=ActMoveToPos
+    else if tmpActionStr='GotoPos' then tmpStep.Action:=ActMoveToPos
     else if tmpActionStr='GoToMap' then tmpStep.Action:=ActGoToMap
     else if tmpActionStr='GotoMap' then tmpStep.Action:=ActGoToMap
     else if tmpActionStr='BattleAct' then tmpStep.Action:=ActInBattle
@@ -723,6 +779,9 @@ begin
     else if tmpActionStr='CreateKungfu' then tmpStep.Action:=ActCreateWG
     else if tmpActionStr='DeleteKungfu' then tmpStep.Action:=ActDeleteWGs
     else if tmpActionStr='AddStats' then tmpStep.Action:=ActSetAttr
+    else if tmpActionStr='SetMarching' then tmpStep.Action:=ActSetMarch
+    else if tmpActionStr='RecordPetStats' then tmpStep.Action:=ActRecordPetStats
+    else if tmpActionStr='LoadPetStats' then tmpStep.Action:=ActLoadPetStats
     else
     begin
       tmpStep.Action:=ActUnknown;
@@ -1524,7 +1583,8 @@ begin
       if doHeal then
       begin
         //get item
-        useItemId := ThisUser.FindItemByType(700);
+        //useItemId := ThisUser.FindItemByType(700);
+        useItemId := ThisUser.FindLifeItem();
         if useItemId = 0 then
         begin
           CurrHumanAction := BattleEscape;
@@ -2393,6 +2453,26 @@ begin
   end;
 end;
 
+function TUser.FindLifeItem(): DWORD;
+var
+  i: integer;
+begin
+  Result:=0;
+
+  GetItems;
+
+  for i:=0 to ItemCount-1 do
+  begin
+    If
+      (Items[i].ItemType = 700) AND (Items[i].PlusLife > 0)
+    then
+    begin
+      Result:=Items[i].ID;
+      break;
+    end;
+  end;
+end;
+
 function TUser.FindItemCount(Name: String; Maker: String): integer;
 var
   i: integer;
@@ -2632,6 +2712,89 @@ begin
   CloseHandle(ProcessHandle);
 end;
 
+
+procedure TUser.RecordPetStats();
+var
+ i: Integer;
+ marchPet: TPet;
+begin
+  marchPet := GetMarchingPet();
+
+  if marchPet.Level <> 1 then exit;
+
+  with TIniFile.Create(IDS_UsersPath + HLInfoList.GlobalHL.UserName + '_pet.Ini') do // 创招
+  try
+    WriteString(intToStr(marchPet.ID), 'life', intToStr(marchPet.MaxLife));
+    WriteString(intToStr(marchPet.ID), 'attack', intToStr(marchPet.Attack));
+    WriteString(intToStr(marchPet.ID), 'defence', intToStr(marchPet.Defence));
+    WriteString(intToStr(marchPet.ID), 'dexterity', intToStr(marchPet.Dexterity));
+  finally
+  	free;
+  end;
+end;
+
+
+procedure TUser.GetPetStats(petId: Integer);
+var
+ life, atk, def, dex: Integer;
+begin
+  with TIniFile.Create(IDS_UsersPath + HLInfoList.GlobalHL.UserName + '_pet.Ini') do // 创招
+  try
+    life := ReadInteger(intToStr(petId), 'life', 50);
+    atk := ReadInteger(intToStr(petId), 'attack', 7);
+    def := ReadInteger(intToStr(petId), 'defence', 6);
+    dex := ReadInteger(intToStr(petId), 'dexterity', 5);
+
+    FormMain.EditPetLife.Text := intToStr(life);
+    FormMain.EditPetAttack.Text := intToStr(atk);
+    FormMain.EditPetDefence.Text := intToStr(def);
+    FormMain.EditPetDexterity.Text := intToStr(dex);
+    FormMain.UpdateMarchingPetInfo();
+    FormShowPets.EditPetLife.Text := intToStr(life);
+    FormShowPets.EditPetAttack.Text := intToStr(atk);
+    FormShowPets.EditPetDefence.Text := intToStr(def);
+    FormShowPets.EditPetDexterity.Text := intToStr(dex);
+    FormShowPets.UpdateMarchingPetInfo();
+  finally
+  	free;
+  end;
+end;
+
+
+function TUser.GetMarchingPetGrowth(): Single;
+var
+  marchingPet: TPet;
+  petId, atk, def, dex: Integer;
+  allGrow: Double;
+begin
+  Result := 0;
+
+  marchingPet := GetMarchingPet();
+  petId := marchingPet.ID;
+
+  with TIniFile.Create(IDS_UsersPath + HLInfoList.GlobalHL.UserName + '_pet.Ini') do // 创招
+  try
+    atk := ReadInteger(intToStr(petId), 'attack', 0);
+    def := ReadInteger(intToStr(petId), 'defence', 0);
+    dex := ReadInteger(intToStr(petId), 'dexterity', 0);
+  finally
+  	free;
+  end;
+
+  if atk = 0 then atk := StrToInt(FormShowPets.EditPetAttack.Text);
+  if def = 0 then def := StrToInt(FormShowPets.EditPetDefence.Text);
+  if dex = 0 then dex := StrToInt(FormShowPets.EditPetDexterity.Text);
+
+  allGrow := marchingPet.Attack * (1 - (0.05 * marchingPet.MedalAttack));
+  allGrow := allGrow + marchingPet.Defence * (1 - (0.05 * marchingPet.MedalDefence));
+  allGrow := allGrow + marchingPet.Dexterity * (1 - (0.05 * marchingPet.MedalDexterity));
+  allGrow := allGrow - (atk + def + dex);
+  allGrow := allGrow / (marchingPet.Level - 1);
+  Result := allGrow;
+end;
+
+
+
 function TCreateWG.FindWindows(var hwndMC, hwndXS, hwndNL, hwndQS, hwndGJ, hwndBZ, hwndButtonCZ: HWND):HWND; // 返回创招窗口的HWND，如果为0，说明没有找到
 const
   RepCountTol=5;
@@ -2804,7 +2967,7 @@ begin
   if DeleteFrom>ThisUser.WGCount then Exit; // 无招可删了
 
   EnableWindow(hwndSkill, False);
-  
+
   if SendMessage(hwndLearnedSkillList, LB_SETCURSEL, DeleteFrom-1, 0)=LB_ERR then Exit;
   if SendMessage(hwndLearnedSkillList, LB_GETITEMRECT, DeleteFrom-1, LPARAM(@tmpRect))=LB_ERR then Exit;
 

@@ -10,7 +10,7 @@ resourcestring
 
   IDS_StoreFilename       = 'Store.ini';
   IDS_DefaultMapFileName  = 'Map.ini';
-  RS_UpDateTime	          = '2019.06.03';
+  RS_UpDateTime	          = '2019.10.17';
 
   IDS_MainHotKeyInfo    = 'MainHotKeyInfo';
   IDS_WinInfoHotKeyInfo = 'WinInfoHotKeyInfo';
@@ -80,6 +80,10 @@ const
   ActSetHeal          = 310;  // Set heal settings
   ActDropItem         = 320;  // Drop an item
   ActSetAttr          = 330;  // Set user Attributes
+  ActSetMarch         = 340;  // Set the marching pet
+  ActRecordPetStats   = 350;  // Record to file pet stats at level 1 by ID
+  ActLoadPetStats     = 360;  // load pet stats for growth tracking
+  ActRenamePet        = 370;  // Change pet name
 
 //  UserIDAddr	= $006c2200;  // Old HL_Base_Address
 

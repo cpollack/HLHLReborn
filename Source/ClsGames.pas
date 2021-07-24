@@ -62,6 +62,7 @@ Type
       const SubTitle: WideString; const isDirectChild: Boolean): TWindowInfo; overload;
     function LocateToMainPanel: Integer;
     function LocateToPlayWindow(var wPlayWindow: TWindowInfo): Integer;
+    function LocatePetMarchingButton(slot: Integer): HWND;
     property MainHotKeyInfo: THotKeyInfo read FMainHotKeyInfo;
     function ReCalWin: Integer;
     procedure SaveFormAttribute(const FormNameStr: Widestring; f: TForm);
@@ -85,7 +86,7 @@ Type
     property SelectIndex: Integer write SetSelectIndex;
     property GlobalHL: THLInfo read GetCurrHLInfo;
   end;
-  
+
   THLUser = Class
   private
     FHLInfo: THLInfo;
@@ -276,7 +277,7 @@ begin
       tmpRecursionWin := tmpWin;
       // 检查是否为ParentWin的某层子窗口
       while tmpRecursionWin.ParentWin <> nil do
-        if tmpRecursionWin.ParentWin.Window = hwndParentWin then
+        if (hwndParentWin = 0) or (tmpRecursionWin.ParentWin.Window = hwndParentWin) then
         begin
           Result := tmpWin;
           Exit;
@@ -404,6 +405,38 @@ begin
   until i > self.Count - 1;
   //CloseFile(myFile);
 end;
+
+
+function THLInfo.LocatePetMarchingButton(slot: Integer): HWND;
+// Find marching button for pet in slot
+var
+  i: Integer;
+  slotIter: Integer;
+  nextWin: TWindowInfo;
+begin
+  ReCalWin;
+  Result := 0;
+  nextWin := nil;
+  slotIter := 6 - slot;
+
+  for i := 0 to Self.Count - 1 do
+  begin
+    nextWin := Self.Items[i];
+    if (nextWin.ParentWin <> nil) and (nextWin.ParentWin.Title = 'Pet List') then
+    begin
+      if (nextWin.Title = 'Marching') OR (nextWin.Title = 'Resting') then
+      begin
+        if slotIter = 1 then
+        begin
+          Result := nextWin.Window;
+          Break;
+        end;
+        slotIter := slotIter - 1;
+      end;
+    end;
+  end;
+end;
+
 
 function THLInfo.ReCalWin: Integer;
 // 返回找到窗口的个数

@@ -47,15 +47,15 @@ object FormShowPets: TFormShowPets
     Caption = '[lvl]'
   end
   object Label15: TLabel
-    Left = 106
-    Top = 128
+    Left = 108
+    Top = 133
     Width = 34
     Height = 13
     Caption = 'Current'
   end
   object Label16: TLabel
-    Left = 172
-    Top = 128
+    Left = 174
+    Top = 133
     Width = 34
     Height = 13
     Caption = 'Growth'
@@ -269,5 +269,14 @@ object FormShowPets: TFormShowPets
     TabOrder = 6
     Text = '5'
     OnChange = PetBaseStatsChange
+  end
+  object btnRecord: TButton
+    Left = 148
+    Top = 107
+    Width = 53
+    Height = 22
+    Caption = 'Record'
+    TabOrder = 7
+    OnClick = btnRecordClick
   end
 end

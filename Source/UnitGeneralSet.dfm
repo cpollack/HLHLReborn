@@ -93,7 +93,7 @@ object FormGeneralSet: TFormGeneralSet
       Max = 1000
       PageSize = 100
       Frequency = 100
-      Position = 500
+      Position = 400
       TabOrder = 0
       OnChange = TrackBar1Change
     end

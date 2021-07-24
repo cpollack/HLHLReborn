@@ -965,7 +965,7 @@ begin
   FormMain.Caption := 'HLHLReborn Ver ' + GetHLHLVer;
 
 	// 根据参数设置“设计按钮”状态
-  DevelopState := false;
+  DevelopState := true;
 	if ParamCount > 0 then
    	DevelopState := LowerCase(ParamStr(1)) = '-d';
  	self.btnDevelop.Visible := DevelopState;

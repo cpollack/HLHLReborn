@@ -156,6 +156,12 @@ begin
           tmpTransaction.ClearOldTime;
           tmpTransaction.GotoNextStep;
         end
+        else if (tmpStep.Z = 'NormalOrBattleState') and ((GetUserEnvState = UserEnvNormal) or (GetUserEnvState = UserEnvBattle)) then
+        begin
+          tmpStep.SubStepIndex := 0;
+          tmpTransaction.ClearOldTime;
+          tmpTransaction.GotoNextStep;
+        end
         else if GetUserEnvState=UserEnvDialog then // 只有在Dialog状态才能按左键
         begin
           if not tmpTransaction.HasPassedInterval(5000) then exit;
@@ -185,6 +191,12 @@ begin
 
             RightClickOnSomeWindow_Send(tmpWin.Window, StrToIntDef(tmpStep.X, 0), StrToIntDef(tmpStep.Y, 0));
             tmpStep.SubStepIndex := tmpStep.SubStepIndex + 1;
+          end
+          else if (GetUserEnvState = UserEnvBattle) and (tmpStep.Z = 'NormalOrBattleState') then
+          begin
+            tmpStep.SubStepIndex := 0;
+    	      tmpTransaction.ClearOldTime;
+      	    tmpTransaction.GotoNextStep;
           end;
           exit;
         end;
@@ -209,12 +221,32 @@ begin
           end;
         UserEnvNormal: // 只有在Normal状态才能按右键
 	        begin
+            if (tmpStep.Z = 'NormalState') or (tmpStep.Z = 'NormalOrBattleState') then
+            begin
+              tmpStep.SubStepIndex := 0;
+              tmpTransaction.ClearOldTime;
+              tmpTransaction.GotoNextStep;
+            end;
   	        if not tmpTransaction.HasPassedInterval(5000) then exit;
     	      tmpTransaction.SetOldTime;
             HLInfoList.GlobalHL.LocateToPlayWindow(tmpWin);
       	    if tmpWin = nil then Exit; // 没有找到
         	  RightClickOnSomeWindow_Send(tmpWin.Window, StrToIntDef(tmpStep.X, 0), StrToIntDef(tmpStep.Y, 0));
 	        end;
+        UserEnvBattle:
+          begin
+            if (tmpStep.Z = 'BattleState') or (tmpStep.Z = 'NormalOrBattleState') then
+            begin
+              tmpStep.SubStepIndex := 0;
+              tmpTransaction.ClearOldTime;
+              tmpTransaction.GotoNextStep;
+            end;
+            if not tmpTransaction.HasPassedInterval(5000) then exit;
+    	      tmpTransaction.SetOldTime;
+            HLInfoList.GlobalHL.LocateToPlayWindow(tmpWin);
+      	    if tmpWin = nil then Exit; // 没有找到
+        	  RightClickOnSomeWindow_Send(tmpWin.Window, StrToIntDef(tmpStep.X, 0), StrToIntDef(tmpStep.Y, 0));
+          end;
         end;
       end;
   	//--------------------------------------------------------------------------
@@ -222,6 +254,12 @@ begin
     //--------------------------------------------------------------------------
     ActMoveToPos:
       begin
+        if GetUserEnvState = UserEnvBattle then
+        begin
+          tmpTransaction.GotoNextStep;
+          exit;
+        end;
+
         //check current pos?
         GetCurrPosXY(prevX,prevY);
         if (prevX <> StrToInt(tmpStep.X)) or (prevY <> StrToInt(tmpStep.Y)) then
@@ -693,8 +731,8 @@ begin
   	//--------------------------------------------------------------------------
     ActPressButton:
       begin
-        tmpWin := HLInfoList.GlobalHL.ItemOfWindowTitle(tmpStep.Z);
-        if tmpWin<>Nil then
+        if tmpStep.Z <> '' then tmpWin := HLInfoList.GlobalHL.ItemOfWindowTitle(tmpStep.Z);
+        if (tmpStep.Z <> '') and (tmpWin<>Nil) then
         begin
           tmpTransaction.GotoNextStep;
         end
@@ -706,6 +744,10 @@ begin
             LocateChildWindowWNDByTitle(tmpWin.Window, tmpStep.X, True);
           PostMessage(myhwnd, WM_LBUTTONDOWN, MK_LBUTTON, 0);
           PostMessage(myhwnd, WM_LBUTTONUP, 0, 0);
+          if tmpStep.Z = '' then
+          begin
+            tmpTransaction.GotoNextStep;
+          end
         end;
       end;
   	//--------------------------------------------------------------------------
@@ -962,7 +1004,7 @@ begin
             //Verify healing settings
             if not FormGeneralSet.CheckBoxNoHeal.Checked then
             begin
-              if ThisUser.FindItemByType(700) = 0 then
+              if ThisUser.FindLifeItem() = 0 then
               begin
                 if ThisUser.ItemCount = 16 then
                 begin
@@ -1004,11 +1046,14 @@ begin
         1:
           begin
             //Initiate Battle
-            for i := 0 to HLInfoList.GlobalHL.Count - 1 do
+            if GetUserEnvState <> UserEnvBattle then
             begin
-              tmpWin := HLInfoList.GlobalHL.Items[i];
-              if tmpWin.ClassName = 'TPUtilWindow' then
-              	SendMessage(tmpWin.Window, WM_COMMAND, IDM_Battle, 0);
+              for i := 0 to HLInfoList.GlobalHL.Count - 1 do
+              begin
+                tmpWin := HLInfoList.GlobalHL.Items[i];
+                if tmpWin.ClassName = 'TPUtilWindow' then
+                  SendMessage(tmpWin.Window, WM_COMMAND, IDM_Battle, 0);
+              end;
             end;
 
             tmpStep.SubStepIndex := tmpStep.SubStepIndex + 1;
@@ -1427,7 +1472,7 @@ begin
             end;
         end;
       end;
-    ActSetAttr:
+      ActSetAttr:
       begin
         case tmpStep.SubStepIndex of
           0:
@@ -1492,6 +1537,77 @@ begin
           end;
 
         end;
+      end;
+      ActSetMarch:
+      begin
+        case tmpStep.SubStepIndex of
+          0:
+          begin
+            //Open Pet List
+            if (tmpStep.X = '') OR (StrToInt(tmpStep.X) <= 0) OR (StrToInt(tmpStep.X) > 5) then
+            begin  // Unhandled action, skip step
+              ShowMessage('Script ended because an invalid pet slot was provided');
+              ThisWork.CanWork := False;
+              Exit;
+            end;
+
+            if HLInfoList.GlobalHL.ItemOfWindowTitle('Pet''s Status') = nil then
+            begin
+              HLInfoList.GlobalHL.LocateToPlayWindow(tmpWin);
+              if tmpWin = nil then Exit; // 没有找到
+              //LeftClickOnSomeWindow_Send(tmpWin.Window, 140, 490);
+              SendMessage(tmpWin.Window, WM_LBUTTONDOWN, MK_LBUTTON, 140 + 490 * 65536);
+              PostMessage(tmpWin.Window, WM_LBUTTONUP, 0, 140 + 490 * 65536);
+              Sleep(100);
+            end
+            else tmpStep.SubStepIndex := tmpStep.SubStepIndex + 1;
+          end;
+
+          1:
+          begin
+            tmpWin := HLInfoList.GlobalHL.ItemOfWindowTitle('Pet''s Status');
+
+            myhwnd := HLInfoList.GlobalHL.
+              LocateChildWindowWNDByTitle(tmpWin.Window, 'Pet List', False);
+            if myhwnd = 0 then Exit;
+
+            myhwnd := HLInfoList.GlobalHL.LocatePetMarchingButton(StrToInt(tmpStep.X));
+            if myhwnd = 0 then Exit;
+
+            LeftClickOnSomeWindow_Post(myhwnd, 0, 0);
+            tmpStep.SubStepIndex := tmpStep.SubStepIndex + 1;
+          end;
+
+          2:
+          begin
+            //close window
+            tmpWin := HLInfoList.GlobalHL.ItemOfWindowTitle('Pet''s Status');
+            if tmpWin <> nil then
+            begin
+              Sendmessage(tmpWin.Window, WM_CLOSE, 0, 0);
+            end;
+
+            ThisUser.GetPets;
+            FormMain.UpdateMarchingPetInfo;
+            FormShowPets.UpdateMarchingPetInfo;
+            tmpStep.SubStepIndex := 0;
+            tmpTransaction.GotoNextStep;
+            Sleep(100);
+          end;
+
+        end;
+      end;
+    ActRecordPetStats:
+      begin
+        ThisUser.RecordPetStats;
+        tmpStep.SubStepIndex := 0;
+        tmpTransaction.GotoNextStep;
+      end;
+    ActLoadPetStats:
+      begin
+        ThisUser.GetPetStats(ThisUser.GetMarchingPet().ID);
+        tmpStep.SubStepIndex := 0;
+        tmpTransaction.GotoNextStep;
       end;
   	//--------------------------------------------------------------------------
 		// 未知指令

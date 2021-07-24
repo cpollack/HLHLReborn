@@ -164,7 +164,7 @@ var
   CallNPCState: TCallNPCState;
   ThisWGAttrs: TWGAttrs;
 
-  TimeToSleep: Integer = 500; // 以微秒为单位
+  TimeToSleep: Integer = 400; // 以微秒为单位
 
   StoveInstruction: TStoveInstruction;
 

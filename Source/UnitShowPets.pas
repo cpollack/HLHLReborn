@@ -37,12 +37,14 @@ type
     Label3AGr: TLabel;
     Label26: TLabel;
     LabelMedalGr: TLabel;
+    btnRecord: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure ButtonHideClick(Sender: TObject);
     procedure btnRefreshClick(Sender: TObject);
     procedure UpdateMarchingPetInfo();
     procedure PetBaseStatsChange(Sender: TObject);
+    procedure btnRecordClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -111,9 +113,16 @@ begin
   Close;
 end;
 
+procedure TFormShowPets.btnRecordClick(Sender: TObject);
+begin
+  ThisUser.RecordPetStats;
+end;
+
 procedure TFormShowPets.btnRefreshClick(Sender: TObject);
 // œ‘ æ≥ËŒÔ
 begin
+  updateMarchingPetInfo();
+  ThisUser.GetPetStats(ThisUser.GetMarchingPet().ID);
 	self.ShowPets;
 end;
 

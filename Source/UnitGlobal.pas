@@ -42,7 +42,7 @@ uses
 function GetHLHLVer: WideString;
 // HLHLReborn Global Version
 begin
-	Result := '1.2.01';
+	Result := '1.2.05';
 end;
 
 procedure UnPatchAll;
