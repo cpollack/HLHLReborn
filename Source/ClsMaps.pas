@@ -11,7 +11,8 @@ type
     ShanCheng_Forge, 	ShanCheng_Med, 	ShanCheng_Jewelry,                  // 山
     ShaCheng_Forge,  	ShaCheng_Med, 	ShaCheng_Jewelry,                   // 沙
      									XueCheng_Med,                                       // 雪
-    									HaiCheng_Med                                        // 海
+    									HaiCheng_Med,                                       // 海
+                      XinShanCheng_Med                                    // 新山
   ); // NPC 编号：铁匠、药店、珠宝店、宠物店
 
   // 步骤信息
