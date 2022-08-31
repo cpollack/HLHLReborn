@@ -42,7 +42,7 @@ uses
 function GetHLHLVer: WideString;
 // HLHLReborn Global Version
 begin
-	Result := '1.2.05';
+	Result := '1.2.06';
 end;
 
 procedure UnPatchAll;
@@ -464,6 +464,10 @@ begin
   NPCs[Ord(HaiCheng_Med)] := NPCs[Ord(ShuiCheng_Med)];
   NPCs[Ord(HaiCheng_Med)].ShopMapID := 400000;
   NPCs[Ord(HaiCheng_Med)].Name := 'OceanCity Pharmacy';
+
+  NPCs[Ord(XinShanCheng_Med)] := NPCs[Ord(ShuiCheng_Med)];
+  NPCs[Ord(XinShanCheng_Med)].ShopMapID := 100099;
+  NPCs[Ord(XinShanCheng_Med)].Name := 'NewHillCity Pharmacy';
 
 	// ----------- Öé±¦ -----------------------------
   NPCs[Ord(Shuicheng_Jewelry)].ShopMapID := 100034;
