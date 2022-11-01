@@ -3,7 +3,7 @@ object FormWelcome: TFormWelcome
   Top = 422
   BorderIcons = []
   BorderStyle = bsDialog
-  Caption = 'HLHL Ver0.99'
+  Caption = 'HLHL Ver1.2.07'
   ClientHeight = 159
   ClientWidth = 213
   Color = clBtnFace
@@ -25,7 +25,7 @@ object FormWelcome: TFormWelcome
     Top = 3
     Width = 152
     Height = 15
-    Caption = 'Updated: 2022.08.29'
+    Caption = 'Updated: 2022.08.31'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15

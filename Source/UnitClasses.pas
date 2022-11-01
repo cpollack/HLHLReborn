@@ -703,7 +703,43 @@ begin
             break;
           end;
         end
-      end
+        else if tmpX='Stats' then
+        begin
+          ThisUser.GetAttr;
+          if(tmpY = 'Attack') or (tmpY = 'Atk') then
+            begin
+              if ThisUser.Gongji >= StrToInt(tmpZ) then
+              begin
+                tmpPurpose.isSatisfied := True;
+                Break;
+              end;
+            end;
+            if (tmpY = 'Defence') or (tmpY = 'Defense') or (tmpY = 'Def') then
+            begin
+              if ThisUser.Fangyu >= StrToInt(tmpZ) then
+              begin
+                tmpPurpose.isSatisfied := True;
+                Break;
+              end;
+            end;
+            if (tmpY = 'Dexterity') or (tmpY = 'Dex') then
+            begin
+              if ThisUser.Qinggong >= StrToInt(tmpZ) then
+              begin
+                tmpPurpose.isSatisfied := True;
+                Break;
+              end;
+            end;
+            if (tmpY = 'RemainingPoints') or (tmpY = 'Points') then
+            begin
+              if ThisUser.RemainingPoints >= StrToInt(tmpZ) then
+              begin
+                tmpPurpose.isSatisfied:=True;
+                break;
+              end;
+            end;
+        end;
+      end;
     end;
   end;
 
