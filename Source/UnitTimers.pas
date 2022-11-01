@@ -1024,6 +1024,7 @@ begin
                   if FormGeneralSet.cmbStore.Text = 'SandCity Pharmacy' then tmpPharmMap := '200000';
                   if FormGeneralSet.cmbStore.Text = 'SnowCity Pharmacy' then tmpPharmMap := '300000';
                   if FormGeneralSet.cmbStore.Text = 'OceanCity Pharmacy' then tmpPharmMap := '400000';
+                  if FormGeneralSet.cmbStore.Text = 'NewHillCity Pharmacy' then tmpPharmMap := '100099';
 
                   tmpHealTransaction.AddStep(ActGotoMap,tmpPharmMap,'','');
                   tmpHealTransaction.AddStep(ActCallNPC,FormGeneralSet.cmbStore.Text,'','');
@@ -1087,6 +1088,7 @@ begin
             if FormGeneralSet.cmbStore.Items[setHealIter] = tmpStep.Y then
             begin
               FormGeneralSet.cmbStore.ItemIndex := setHealIter;
+              FormGeneralSet.cmbStoreChange(FormGeneralSet.cmbStore); // sarah: refresh medicine list when store is changed
               Break;
             end;
           end;

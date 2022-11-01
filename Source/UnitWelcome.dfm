@@ -25,7 +25,7 @@ object FormWelcome: TFormWelcome
     Top = 3
     Width = 152
     Height = 15
-    Caption = 'Updated: 2019.04.26'
+    Caption = 'Updated: 2022.08.29'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -15
